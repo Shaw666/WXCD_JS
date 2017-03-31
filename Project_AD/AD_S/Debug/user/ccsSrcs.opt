@@ -1,0 +1,1 @@
+"../user/AD.c" "../user/TM1650_IIC.c" "../user/main.c" "../user/printf_uart.c" "../user/segscan.c" "../user/timer0_base.c" 
