@@ -47,15 +47,16 @@ void main(void) {
 	Timer0_init(); //初始化定时器0用于定时处理相关任务
 //	Timer1_init(); //初始化定时器1用于定时处理PID 区别收发
 
-	SCI_Init(128000);   //初始化SCI用于调试串口
+	SCI_Init(115200);   //初始化SCI用于调试串口
+	SetupSCI(128000);
 	ZM5168_INit();              //初始化zm5168_P0模块
 	open_uart_debug();
 
 	//TM1650 IIC初始化
 	InitI2C_Gpio();             //io 初始化为IIC
 	I2CA_Init();                //HW IIC初始化，100KHz
-
-	EPWM1_Config(1500);         //初始化PWM20k 1us死区 区别收发
+	SPI_INit();
+//	EPWM1_Config(1500);         //初始化PWM20k 1us死区 区别收发
 //	EPWM2_Config(3000);
 
 	ADC_Config(); //初始化ADC 区别收发

@@ -83,7 +83,7 @@ void handleRxFIFO()
 
 	}
 }
-
+u16 temp;
 //#################################################
 //串口接收中断函数
 //采用FIFO机制（缓存）
@@ -91,50 +91,14 @@ void handleRxFIFO()
 //-----------------------------------------------
 interrupt void uartRx_isr(void)
 {
-//	if(SciaRegs.SCIFFRX.bit.RXFFOVF == 0)//接收FIFO未溢出
-//	{
-//		SCI_Msg.Mark_Para.Status_Bits.rFifoDataflag = 1;
-//
-//		if((SCI_Msg.rxWriteIndex + SCI_FIFO_LEN) != SCI_Msg.rxReadIndex )
-//		{
-//			//接收数据
-//			while(SciaRegs.SCIFFRX.bit.RXFFST)
-//			{
-//				SCI_Msg.rxData[SCI_Msg.rxWriteIndex] = SciaRegs.SCIRXBUF.all;
-//				SCI_Msg.rxWriteIndex=(++SCI_Msg.rxWriteIndex)%(UartRxLEN);
-//			}
-//		}
-//		else//接收缓存满
-//		{
-//			//用户这里做缓存满的处理,
-//			SciaRegs.SCIFFRX.bit.RXFIFORESET = 0;  //Write 0 to reset the FIFO pointer to zero, and hold in reset.
-//			SciaRegs.SCIFFRX.bit.RXFIFORESET = 1 ; //Re-enable receive FIFO operation
-//
-//			SCI_Msg.Mark_Para.Status_Bits.rFifoFullflag = 1;
-//		}
-//	}
-//	else
-//	{
-//		//用户这里做串口硬件溢出的处理,可以完全读取出FIFO里的数据或者清空FIFO
-//		//这里清空FIFO操作
-//		SciaRegs.SCIFFRX.bit.RXFFOVRCLR=1;   // Clear HW Overflow flag
-//		SciaRegs.SCIFFRX.bit.RXFIFORESET = 0;  //Write 0 to reset the FIFO pointer to zero, and hold in reset.
-//		SciaRegs.SCIFFRX.bit.RXFIFORESET = 1 ; //Re-enable receive FIFO operation
-//		SCI_Msg.Mark_Para.Status_Bits.HWOVFlag = 1;
-//
-//	}
-
-	SCI_Msg.rxData[SCI_Msg.rxWriteIndex] = SciaRegs.SCIRXBUF.all;
-    if(SCI_Msg.rxWriteIndex < UartRxLEN)
-	{
-    	SCI_Msg.rxWriteIndex ++;
-	}else{
-		SCI_Msg.rxWriteIndex = 0;
-	}
-    SciaRegs.SCITXBUF = SCI_Msg.rxData[SCI_Msg.rxWriteIndex];
-
-    SciaRegs.SCIFFRX.bit.RXFFINTCLR=1;   // Clear Interrupt flag
-	PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
+	D402TOGGLE();
+	if(SciaRegs.SCIFFRX.bit.RXFFST==1)
+    temp = SciaRegs.SCIRXBUF.bit.RXDT;
+//	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
+	SciaRegs.SCITXBUF = temp;
+	D401TOGGLE();
+	SciaRegs.SCIFFRX.bit.RXFFINTCLR = 1;   // Clear Interrupt flag
+	PieCtrlRegs.PIEACK.bit.ACK9 = 1;
 }
 
 

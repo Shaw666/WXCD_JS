@@ -12,7 +12,9 @@
 //AdcRegs.ADCSOCFRC1.all = 0X000F; //软件触发SOC0--SOC3采样
 
 interrupt void adc_isr(void);
+void SendJS(void);
 
+WXCDInfo zm5168_v1 = {0,0,0};
 
 //-------------------------------------------------------------------------
 //AD初始化
@@ -24,8 +26,8 @@ void ADC_Config(void)
 {
 
    InitAdc();  // 先调用官方AD默认的配置函数初始化（必须）
-   zm5168.deviceID_State = 0x0000;
-   zm5168.deviceID_State |= 0xA500;
+   zm5168_v1.deviceID_State = 0xA500;
+
    EALLOW;
    PieVectTable.ADCINT3 = &adc_isr;// AD中断函数映射
    EDIS;
@@ -118,6 +120,8 @@ void ADC_Config(void)
 
 
 u16 ADResReg[16];
+void *p;
+u8 i;
 //-------------------------------------------------------------------------
 //AD 中断处理函数
 //##########################################################################
@@ -137,8 +141,8 @@ interrupt void  adc_isr(void)
     ADResReg[6] =  AdcResult.ADCRESULT6;//定位电压
     ADResReg[7] =  AdcResult.ADCRESULT7;//12v检测 1.9v以下
 
-    zm5168.regulate_V =  AdcResult.ADCRESULT8;//直流输出电压检测 220-2.25
-    zm5168.regulate_I =  AdcResult.ADCRESULT9;//直流输出电流检测 10A-2
+    zm5168_v1.regulate_V =0x1000;//  AdcResult.ADCRESULT8;//直流输出电压检测 220-2.25
+    zm5168_v1.regulate_I =0x1000;//  AdcResult.ADCRESULT9;//直流输出电流检测 10A-2
     ADResReg[10] = AdcResult.ADCRESULT10;//-12v检测 1.8v以下
     ADResReg[11] = AdcResult.ADCRESULT11;//5v检测 1.87以下
     ADResReg[12] = AdcResult.ADCRESULT12;//3.3v检测 2.2以下
@@ -147,33 +151,59 @@ interrupt void  adc_isr(void)
     ADResReg[15] = AdcResult.ADCRESULT15;//220v输出电压保护 2.55v以上
 
     if(ADResReg[1]>3474){
-    	zm5168.deviceID_State |= 0x0080;
+    	zm5168_v1.deviceID_State |= 0x0080;
     }
     if(ADResReg[2]>3474){
-    	zm5168.deviceID_State |= 0x0040;
+    	zm5168_v1.deviceID_State |= 0x0040;
     }
     if(ADResReg[7]>2357){
-    	zm5168.deviceID_State |= 0x0020;
+    	zm5168_v1.deviceID_State |= 0x0020;
     }
     if(ADResReg[10]>2233){
-    	zm5168.deviceID_State |= 0x0010;
+    	zm5168_v1.deviceID_State |= 0x0010;
     }
     if(ADResReg[11]>2320){
-    	zm5168.deviceID_State |= 0x0008;
+    	zm5168_v1.deviceID_State |= 0x0008;
     }
     if(ADResReg[12]>2730){
-    	zm5168.deviceID_State |= 0x0004;
+    	zm5168_v1.deviceID_State |= 0x0004;
     }
     if(ADResReg[15]>3164){
-    	zm5168.deviceID_State |= 0x0002;
+    	zm5168_v1.deviceID_State |= 0x0002;
     }
-    for(unsigned char i=0;i<6;i++)
-	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
-	SciaRegs.SCITXBUF=DataScope_OutPut_Buffer[j];
+    SendJS();
+//	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
+//	SciaRegs.SCITXBUF = zm5168_v1.deviceID_State;
+//	SciaRegs.SCITXBUF = zm5168_v1.regulate_V;
+//	SciaRegs.SCITXBUF = zm5168_v1.regulate_I;
+
 //0111 1011 1111 1011
 	AdcRegs.ADCSOCFRC1.all = 0X7BFB; //软件触发AD 的 SOC0--SOC3采样
 
 //	printf("\r\nAD Result is SOC0-A1:%0.2fV  SOC1-B1:%0.2fV  SOC2-A1:%0.2fV  SOC3-B1:%0.2fV",(float)((AdcResult.ADCRESULT0)*3.3/4096),(float)((AdcResult.ADCRESULT1)*3.3/4096),(float)((AdcResult.ADCRESULT2)*3.3/4096),(float)((AdcResult.ADCRESULT3)*3.3/4096));
 }
 
+void SendJS(void)
+{
+    //Wait for the module to be ready to transmit
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = (0xff00&zm5168_v1.deviceID_State)>>8;
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = 0x0ff&zm5168_v1.deviceID_State;
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = (0xff00&zm5168_v1.regulate_V)>>8;
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = 0x0ff&zm5168_v1.regulate_V;
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = (0xff00&zm5168_v1.regulate_I)>>8;
+    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    //Begin transmission
+    LinaRegs.SCITD = 0x0ff&zm5168_v1.regulate_I;
+    return ;
+}
 

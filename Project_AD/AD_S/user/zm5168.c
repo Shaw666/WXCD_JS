@@ -31,8 +31,10 @@ void Init_LinaGpio()
     EDIS;
 }
 
-void SetupSCI(void)
+void SetupSCI(Uint32 buad)
 {
+	Uint16 brr_reg = (1875000 / buad) - 1;	//15000000/8 = 1875000
+
 	Init_LinaGpio();//22 23 TX RX
 	//Allow write to protected registers
 	EALLOW;
@@ -65,7 +67,8 @@ void SetupSCI(void)
     LinaRegs.SCIFORMAT.bit.LENGTH = 0;   //One byte
 
 	//Set baudrate
-    LinaRegs.BRSR.bit.SCI_LIN_PSL =  SciaRegs.SCILBAUD =14; //0XC2-->9600 ; 97--> 19200 ;0x30-->38400;14-->128000
+    LinaRegs.BRSR.bit.SCI_LIN_PSL =  brr_reg & 0x00FF; //0XC2-->9600 ; 97--> 19200 ;0x30-->38400;14-->128000
+    LinaRegs.BRSR.bit.SCI_LIN_PSH = (brr_reg >> 8) & 0x00FF;
     // baud = LSPCLK/8/((BRR+1)
 
     LinaRegs.BRSR.bit.M = 5;
@@ -90,6 +93,7 @@ void SetupSCI(void)
 //		LinaRegs.SCITD = ReceivedChar;
 //	}
 }
+
 /*
  * 发射接收共用zm5168无线zigbee驱动函数
  * GPIO 2 6
@@ -99,7 +103,7 @@ void SetupSCI(void)
 void ZM5168_INit(void)
 {
 	//初始化lina为uart模式
-	SetupSCI();
+//	SetupSCI();
 	EALLOW;
 	//GPIO寄存器受保护  reset WAKE RX TX ----- GPIO2 GPIO6 LINTX LINRX
 	GpioCtrlRegs.GPAMUX1.bit.GPIO2  = 0;	//GPIO2作为普通IO  1ms低电平有效

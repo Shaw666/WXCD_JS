@@ -15,7 +15,6 @@ C_SRCS += \
 ../user/main.c \
 ../user/pid.c \
 ../user/printf_uart.c \
-../user/pwm.c \
 ../user/sim_spi.c \
 ../user/timer.c \
 ../user/zm5168.c 
@@ -30,7 +29,6 @@ OBJS += \
 ./user/main.obj \
 ./user/pid.obj \
 ./user/printf_uart.obj \
-./user/pwm.obj \
 ./user/sim_spi.obj \
 ./user/timer.obj \
 ./user/zm5168.obj 
@@ -44,7 +42,6 @@ C_DEPS += \
 ./user/main.pp \
 ./user/pid.pp \
 ./user/printf_uart.pp \
-./user/pwm.pp \
 ./user/sim_spi.pp \
 ./user/timer.pp \
 ./user/zm5168.pp 
@@ -61,7 +58,6 @@ C_DEPS__QUOTED += \
 "user\main.pp" \
 "user\pid.pp" \
 "user\printf_uart.pp" \
-"user\pwm.pp" \
 "user\sim_spi.pp" \
 "user\timer.pp" \
 "user\zm5168.pp" 
@@ -79,7 +75,6 @@ OBJS__QUOTED += \
 "user\main.obj" \
 "user\pid.obj" \
 "user\printf_uart.obj" \
-"user\pwm.obj" \
 "user\sim_spi.obj" \
 "user\timer.obj" \
 "user\zm5168.obj" 
@@ -93,7 +88,6 @@ C_SRCS__QUOTED += \
 "../user/main.c" \
 "../user/pid.c" \
 "../user/printf_uart.c" \
-"../user/pwm.c" \
 "../user/sim_spi.c" \
 "../user/timer.c" \
 "../user/zm5168.c" 

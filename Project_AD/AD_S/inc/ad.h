@@ -14,7 +14,7 @@ typedef struct WXCDInfo_Type{
 	u16 regulate_I; //12λad
 }WXCDInfo;
 
-WXCDInfo zm5168;
+
 extern u16 ADResReg[16];
 
 

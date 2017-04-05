@@ -119,11 +119,11 @@ void Upper_Uart(void)//上位机发送程序
 	Send_Count = DataScope_Data_Generate(2); //生成4个通道的 格式化帧数据，返回帧数据长度
     for( j = 0;j<Send_Count;j++)  //循环发送,直到发送完毕
 	{
-    	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
-		SciaRegs.SCITXBUF=DataScope_OutPut_Buffer[j];
+//    	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
+//		SciaRegs.SCITXBUF=DataScope_OutPut_Buffer[j];
 
-//	while(LinaRegs.SCIFLR.bit.TXRDY == 0);
-//	//Begin transmission
-//	LinaRegs.SCITD = DataScope_OutPut_Buffer[j];
+	while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+	//Begin transmission
+	LinaRegs.SCITD = DataScope_OutPut_Buffer[j];
 	}
 }
