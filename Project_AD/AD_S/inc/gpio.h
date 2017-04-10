@@ -5,8 +5,8 @@
  *      Author: Shaw
  */
 
-#ifndef LED_H_
-#define LED_H_
+#ifndef GPIO_H_
+#define GPIO_H_
 
 //接收端读取按键宏定义
 #define DIP0() GpioDataRegs.GPADAT.bit.GPIO0

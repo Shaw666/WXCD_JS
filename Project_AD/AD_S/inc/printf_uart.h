@@ -9,7 +9,7 @@
 
 #define RTU_TIMEROUT 5 //ms
 
-#define SCI_FIFO_LEN  3 //定义DSP串口FIFO深度
+#define SCI_FIFO_LEN  4 //定义DSP串口FIFO深度
 
 
 #define UartRxLEN 20  //接收缓存长度

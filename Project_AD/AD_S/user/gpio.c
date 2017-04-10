@@ -8,7 +8,7 @@
 #include "HK_all_include.h"
 ///*
 //接收端LED初始化
-void LED_INit(void)
+void GPIO_INit(void)
 {
 	EALLOW;
 	//GPIO寄存器受保护   LED1  2   3  GPIO 4 5 10
@@ -34,7 +34,7 @@ void LED_INit(void)
 
 /*
 //发射端LED初始化
-void LED_INit(void)
+void GPIO_INit(void)
 {
 	EALLOW;
 	//GPIO寄存器受保护   LED 1 2 3 4 --- GPIO9 16 17 34  初始化1111

@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v6.2.0                      
 ******************************************************************************
->> Linked Wed Apr 05 13:24:58 2017
+>> Linked Thu Apr 06 13:40:35 2017
 
 OUTPUT FILE NAME:   <WXCD_JS.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 003ea85a
+ENTRY POINT SYMBOL: "_c_int00"  address: 003ea84a
 
 
 MEMORY CONFIGURATION
@@ -15,7 +15,7 @@ PAGE 0:
   RAML0                 00008000   00000800  0000001f  000007e1  RWIX
   RAML1                 00008800   00000400  00000000  00000400  RWIX
   OTP                   003d7800   00000400  00000000  00000400  RWIX
-  FLASHCDEFGH           003e8000   0000c000  0000329d  00008d63  RWIX
+  FLASHCDEFGH           003e8000   0000c000  00003288  00008d78  RWIX
   FLASHB2               003f5000   00001000  0000001f  00000fe1  RWIX
   FLASHA                003f6000   00001f80  00000000  00001f80  RWIX
   CSM_RSVD              003f7f80   00000076  00000000  00000076  RWIX
@@ -88,7 +88,7 @@ section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
 .pinit     0    003e8000    00000000     UNINITIALIZED
 
-.text      0    003e8000    00002d5e     
+.text      0    003e8000    00002d45     
                   003e8000    000008fc     rts2800_ml.lib : _printfi.obj (.text)
                   003e88fc    00000282     CANcomm.obj (.text)
                   003e8b7e    00000203     DSP2803x_Adc.obj (.text)
@@ -111,96 +111,96 @@ section   page    origin      length       input sections
                   003ea035    0000009e     main.obj (.text)
                   003ea0d3    0000009c     rts2800_ml.lib : fd_add.obj (.text)
                   003ea16f    0000008e                    : ankmsg.obj (.text)
-                  003ea1fd    0000008c     ad.obj (.text:retain)
-                  003ea289    0000008b     rts2800_ml.lib : fd_div.obj (.text)
-                  003ea314    00000087     led.obj (.text)
-                  003ea39b    00000083     rts2800_ml.lib : fd_mpy.obj (.text)
-                  003ea41e    00000083                    : fs_div.obj (.text)
-                  003ea4a1    0000007e     zm5168.obj (.text)
-                  003ea51f    00000078     rts2800_ml.lib : fs_add.obj (.text)
-                  003ea597    00000078                    : setvbuf.obj (.text)
-                  003ea60f    00000076     DSP2803x_CpuTimers.obj (.text)
-                  003ea685    0000006b     rts2800_ml.lib : fflush.obj (.text)
-                  003ea6f0    00000065                    : _io_perm.obj (.text)
-                  003ea755    0000005b                    : fclose.obj (.text)
-                  003ea7b0    0000005a                    : fs_mpy.obj (.text)
-                  003ea80a    00000050                    : fputc.obj (.text)
-                  003ea85a    00000044                    : boot.obj (.text)
-                  003ea89e    0000003f     timer.obj (.text)
-                  003ea8dd    0000003d     rts2800_ml.lib : fseek.obj (.text)
-                  003ea91a    00000032                    : printf.obj (.text)
-                  003ea94c    00000031                    : atoi.obj (.text)
-                  003ea97d    0000002c                    : ltoa.obj (.text)
-                  003ea9a9    0000002b     Exint.obj (.text)
-                  003ea9d4    0000002a     rts2800_ml.lib : fd_cmp.obj (.text)
-                  003ea9fe    0000002a                    : l_div.obj (.text)
-                  003eaa28    00000029                    : fs_tol.obj (.text)
-                  003eaa51    00000028     DSP2803x_PieCtrl.obj (.text)
-                  003eaa79    00000026     printf_uart.obj (.text:retain)
-                  003eaa9f    00000025     DSP2803x_PieVect.obj (.text)
-                  003eaac4    00000025     rts2800_ml.lib : fs_toi.obj (.text)
-                  003eaae9    00000022                    : strncpy.obj (.text)
-                  003eab0b    00000021                    : fd_toi.obj (.text)
-                  003eab2c    00000021                    : memcpy_ff.obj (.text)
-                  003eab4d    0000001f                    : fd_tol.obj (.text)
-                  003eab6c    0000001e     pid.obj (.text:retain)
-                  003eab8a    0000001e     rts2800_ml.lib : ll_cmp.obj (.text)
-                  003eaba8    0000001c                    : fs_tofd.obj (.text)
-                  003eabc4    0000001c                    : l_tofd.obj (.text)
-                  003eabe0    0000001a     DSP2803x_Sci.obj (.text)
-                  003eabfa    0000001a     timer.obj (.text:retain)
-                  003eac14    0000001a     rts2800_ml.lib : i_tofs.obj (.text)
-                  003eac2e    00000019     DSP2803x_I2C.obj (.text)
-                  003eac47    00000019     rts2800_ml.lib : args_main.obj (.text)
-                  003eac60    00000019                    : exit.obj (.text)
-                  003eac79    00000018                    : ll_aox.obj (.text)
-                  003eac91    00000014                    : ll_mpy.obj (.text)
-                  003eaca5    00000013     DSP2803x_Gpio.obj (.text)
-                  003eacb8    00000010     rts2800_ml.lib : memchr.obj (.text)
-                  003eacc8    00000010                    : u_tofs.obj (.text)
-                  003eacd8    0000000e                    : fd_sub.obj (.text)
-                  003eace6    0000000d                    : memccpy.obj (.text)
-                  003eacf3    0000000c     Exint.obj (.text:retain)
-                  003eacff    0000000c     rts2800_ml.lib : memset.obj (.text)
-                  003ead0b    0000000b                    : strchr.obj (.text)
-                  003ead16    0000000b                    : u_div.obj (.text)
-                  003ead21    0000000a                    : strcmp.obj (.text)
-                  003ead2b    00000009     TM1650_IIC.obj (.text:retain)
-                  003ead34    00000009     rts2800_ml.lib : _lock.obj (.text)
-                  003ead3d    00000009                    : fd_neg.obj (.text)
-                  003ead46    00000008     DSP2803x_CodeStartBranch.obj (.text)
-                  003ead4e    00000008     rts2800_ml.lib : strlen.obj (.text)
-                  003ead56    00000005                    : strcpy.obj (.text)
-                  003ead5b    00000003                    : remove.obj (.text)
+                  003ea1fd    0000008b                    : fd_div.obj (.text)
+                  003ea288    00000087     led.obj (.text)
+                  003ea30f    00000083     rts2800_ml.lib : fd_mpy.obj (.text)
+                  003ea392    00000083                    : fs_div.obj (.text)
+                  003ea415    0000007e     zm5168.obj (.text)
+                  003ea493    0000007c     ad.obj (.text:retain)
+                  003ea50f    00000078     rts2800_ml.lib : fs_add.obj (.text)
+                  003ea587    00000078                    : setvbuf.obj (.text)
+                  003ea5ff    00000076     DSP2803x_CpuTimers.obj (.text)
+                  003ea675    0000006b     rts2800_ml.lib : fflush.obj (.text)
+                  003ea6e0    00000065                    : _io_perm.obj (.text)
+                  003ea745    0000005b                    : fclose.obj (.text)
+                  003ea7a0    0000005a                    : fs_mpy.obj (.text)
+                  003ea7fa    00000050                    : fputc.obj (.text)
+                  003ea84a    00000044                    : boot.obj (.text)
+                  003ea88e    0000003f     timer.obj (.text)
+                  003ea8cd    0000003d     rts2800_ml.lib : fseek.obj (.text)
+                  003ea90a    00000032                    : printf.obj (.text)
+                  003ea93c    00000031                    : atoi.obj (.text)
+                  003ea96d    0000002c                    : ltoa.obj (.text)
+                  003ea999    0000002b     Exint.obj (.text)
+                  003ea9c4    0000002a     rts2800_ml.lib : fd_cmp.obj (.text)
+                  003ea9ee    0000002a                    : l_div.obj (.text)
+                  003eaa18    00000029                    : fs_tol.obj (.text)
+                  003eaa41    00000028     DSP2803x_PieCtrl.obj (.text)
+                  003eaa69    00000025     DSP2803x_PieVect.obj (.text)
+                  003eaa8e    00000025     rts2800_ml.lib : fs_toi.obj (.text)
+                  003eaab3    00000022                    : strncpy.obj (.text)
+                  003eaad5    00000021                    : fd_toi.obj (.text)
+                  003eaaf6    00000021                    : memcpy_ff.obj (.text)
+                  003eab17    0000001f                    : fd_tol.obj (.text)
+                  003eab36    0000001e     pid.obj (.text:retain)
+                  003eab54    0000001e     rts2800_ml.lib : ll_cmp.obj (.text)
+                  003eab72    0000001d     printf_uart.obj (.text:retain)
+                  003eab8f    0000001c     rts2800_ml.lib : fs_tofd.obj (.text)
+                  003eabab    0000001c                    : l_tofd.obj (.text)
+                  003eabc7    0000001a     DSP2803x_Sci.obj (.text)
+                  003eabe1    0000001a     timer.obj (.text:retain)
+                  003eabfb    0000001a     rts2800_ml.lib : i_tofs.obj (.text)
+                  003eac15    00000019     DSP2803x_I2C.obj (.text)
+                  003eac2e    00000019     rts2800_ml.lib : args_main.obj (.text)
+                  003eac47    00000019                    : exit.obj (.text)
+                  003eac60    00000018                    : ll_aox.obj (.text)
+                  003eac78    00000014                    : ll_mpy.obj (.text)
+                  003eac8c    00000013     DSP2803x_Gpio.obj (.text)
+                  003eac9f    00000010     rts2800_ml.lib : memchr.obj (.text)
+                  003eacaf    00000010                    : u_tofs.obj (.text)
+                  003eacbf    0000000e                    : fd_sub.obj (.text)
+                  003eaccd    0000000d                    : memccpy.obj (.text)
+                  003eacda    0000000c     Exint.obj (.text:retain)
+                  003eace6    0000000c     rts2800_ml.lib : memset.obj (.text)
+                  003eacf2    0000000b                    : strchr.obj (.text)
+                  003eacfd    0000000b                    : u_div.obj (.text)
+                  003ead08    0000000a                    : strcmp.obj (.text)
+                  003ead12    00000009     TM1650_IIC.obj (.text:retain)
+                  003ead1b    00000009     rts2800_ml.lib : _lock.obj (.text)
+                  003ead24    00000009                    : fd_neg.obj (.text)
+                  003ead2d    00000008     DSP2803x_CodeStartBranch.obj (.text)
+                  003ead35    00000008     rts2800_ml.lib : strlen.obj (.text)
+                  003ead3d    00000005                    : strcpy.obj (.text)
+                  003ead42    00000003                    : remove.obj (.text)
 
-.econst    0    003ead5e    00000434     
-                  003ead5e    00000101     rts2800_ml.lib : ctype.obj (.econst:.string:__ctypes_)
-                  003eae5f    00000001     --HOLE-- [fill = 0]
-                  003eae60    00000100     DSP2803x_PieVect.obj (.econst)
-                  003eaf60    000000f4     printf_uart.obj (.econst:.string)
-                  003eb054    000000db     CANcomm.obj (.econst:.string)
-                  003eb12f    00000001     --HOLE-- [fill = 0]
-                  003eb130    00000024     TM1650_IIC.obj (.econst:.string)
-                  003eb154    00000024     rts2800_ml.lib : _printfi.obj (.econst:.string)
-                  003eb178    00000018                    : _printfi.obj (.econst)
-                  003eb190    00000002                    : fputs.obj (.econst:.string)
+.econst    0    003ead46    00000434     
+                  003ead46    00000101     rts2800_ml.lib : ctype.obj (.econst:.string:__ctypes_)
+                  003eae47    00000001     --HOLE-- [fill = 0]
+                  003eae48    00000100     DSP2803x_PieVect.obj (.econst)
+                  003eaf48    000000f4     printf_uart.obj (.econst:.string)
+                  003eb03c    000000db     CANcomm.obj (.econst:.string)
+                  003eb117    00000001     --HOLE-- [fill = 0]
+                  003eb118    00000024     TM1650_IIC.obj (.econst:.string)
+                  003eb13c    00000024     rts2800_ml.lib : _printfi.obj (.econst:.string)
+                  003eb160    00000018                    : _printfi.obj (.econst)
+                  003eb178    00000002                    : fputs.obj (.econst:.string)
 
-.cinit     0    003eb192    0000010b     
-                  003eb192    00000048     TM1650_IIC.obj (.cinit)
-                  003eb1da    00000031     rts2800_ml.lib : lowlev.obj (.cinit)
-                  003eb20b    0000002a                    : defs.obj (.cinit)
-                  003eb235    00000022     CANcomm.obj (.cinit)
-                  003eb257    0000000b     printf_uart.obj (.cinit)
-                  003eb262    0000000a     rts2800_ml.lib : _lock.obj (.cinit)
-                  003eb26c    0000000a                    : exit.obj (.cinit)
-                  003eb276    00000008     main.obj (.cinit)
-                  003eb27e    00000007     timer.obj (.cinit)
-                  003eb285    00000006     ad.obj (.cinit)
-                  003eb28b    00000004     DataScope_DP.obj (.cinit)
-                  003eb28f    00000004     pid.obj (.cinit)
-                  003eb293    00000004     rts2800_ml.lib : fopen.obj (.cinit)
-                  003eb297    00000004                    : memory.obj (.cinit)
-                  003eb29b    00000002     --HOLE-- [fill = 0]
+.cinit     0    003eb17a    0000010f     
+                  003eb17a    00000048     TM1650_IIC.obj (.cinit)
+                  003eb1c2    00000031     rts2800_ml.lib : lowlev.obj (.cinit)
+                  003eb1f3    0000002a                    : defs.obj (.cinit)
+                  003eb21d    00000022     CANcomm.obj (.cinit)
+                  003eb23f    0000000f     printf_uart.obj (.cinit)
+                  003eb24e    0000000a     rts2800_ml.lib : _lock.obj (.cinit)
+                  003eb258    0000000a                    : exit.obj (.cinit)
+                  003eb262    00000008     main.obj (.cinit)
+                  003eb26a    00000007     timer.obj (.cinit)
+                  003eb271    00000006     ad.obj (.cinit)
+                  003eb277    00000004     DataScope_DP.obj (.cinit)
+                  003eb27b    00000004     pid.obj (.cinit)
+                  003eb27f    00000004     rts2800_ml.lib : fopen.obj (.cinit)
+                  003eb283    00000004                    : memory.obj (.cinit)
+                  003eb287    00000002     --HOLE-- [fill = 0]
 
 ramfuncs   0    003f5000    0000001f     RUN ADDR = 00008000
                   003f5000    0000001b     DSP2803x_SysCtrl.obj (ramfuncs)
@@ -408,10 +408,10 @@ I2caRegsFile
 
 .ebss      1    00008c00    000003d7     UNINITIALIZED
                   00008c00    00000160     rts2800_ml.lib : defs.obj (.ebss)
-                  00008d60    00000019     printf_uart.obj (.ebss)
-                  00008d79    00000001     rts2800_ml.lib : fopen.obj (.ebss)
-                  00008d7a    00000004                    : _lock.obj (.ebss)
-                  00008d7e    00000002     --HOLE--
+                  00008d60    0000001a     printf_uart.obj (.ebss)
+                  00008d7a    00000004     rts2800_ml.lib : _lock.obj (.ebss)
+                  00008d7e    00000001                    : fopen.obj (.ebss)
+                  00008d7f    00000001     --HOLE--
                   00008d80    00000098     TM1650_IIC.obj (.ebss)
                   00008e18    00000022     pid.obj (.ebss)
                   00008e3a    00000004     rts2800_ml.lib : exit.obj (.ebss)
@@ -534,8 +534,9 @@ address     data page           name
 
 00008cc0     233 (00008cc0)     ___TI_tmpnams
 
-00008d60     235 (00008d40)     _temp
-00008d61     235 (00008d40)     _SCI_Msg
+00008d60     235 (00008d40)     _count
+00008d61     235 (00008d40)     _temp
+00008d62     235 (00008d40)     _SCI_Msg
 00008d7a     235 (00008d40)     __unlock
 00008d7c     235 (00008d40)     __lock
 
@@ -590,9 +591,9 @@ address     data page           name
 
 003d7e80    f5fa (003d7e80)     _PartIdRegs
 
-003ead5e    fab5 (003ead40)     __ctypes_
+003ead46    fab5 (003ead40)     __ctypes_
 
-003eae60    fab9 (003eae40)     _PieVectTableInit
+003eae48    fab9 (003eae40)     _PieVectTableInit
 
 003f7ff8    fdff (003f7fc0)     _CsmPwl
 
@@ -602,40 +603,40 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 address    name
 --------   ----
 003e8000   .text
-003eac60   C$$EXIT
+003eac47   C$$EXIT
 003ea1bf   C$$IO$$
 003ea0d3   FD$$ADD
-003ea9d4   FD$$CMP
-003ea289   FD$$DIV
-003ea39b   FD$$MPY
-003ead3d   FD$$NEG
-003eacd8   FD$$SUB
-003eab0b   FD$$TOI
-003eab4d   FD$$TOL
-003ea524   FS$$ADD
-003ea41e   FS$$DIV
-003ea7b0   FS$$MPY
-003ea51f   FS$$SUB
-003eaba8   FS$$TOFD
-003eaac4   FS$$TOI
-003eaa28   FS$$TOL
-003eac14   I$$TOFS
-003ea9fe   L$$DIV
-003eaa0d   L$$MOD
-003eabc4   L$$TOFD
-003eac79   LL$$AND
-003eab8a   LL$$CMP
+003ea9c4   FD$$CMP
+003ea1fd   FD$$DIV
+003ea30f   FD$$MPY
+003ead24   FD$$NEG
+003eacbf   FD$$SUB
+003eaad5   FD$$TOI
+003eab17   FD$$TOL
+003ea514   FS$$ADD
+003ea392   FS$$DIV
+003ea7a0   FS$$MPY
+003ea50f   FS$$SUB
+003eab8f   FS$$TOFD
+003eaa8e   FS$$TOI
+003eaa18   FS$$TOL
+003eabfb   I$$TOFS
+003ea9ee   L$$DIV
+003ea9fd   L$$MOD
+003eabab   L$$TOFD
+003eac60   LL$$AND
+003eab54   LL$$CMP
 003e985c   LL$$DIV
 003e9898   LL$$MOD
-003eac91   LL$$MPY
-003eac81   LL$$OR
-003eac89   LL$$XOR
-003ead16   U$$DIV
-003ead1b   U$$MOD
-003eacc8   U$$TOFS
-003eaa1b   UL$$DIV
-003eaa22   UL$$MOD
-003eab9c   ULL$$CMP
+003eac78   LL$$MPY
+003eac68   LL$$OR
+003eac70   LL$$XOR
+003eacfd   U$$DIV
+003ead02   U$$MOD
+003eacaf   U$$TOFS
+003eaa0b   UL$$DIV
+003eaa12   UL$$MOD
+003eab66   ULL$$CMP
 003e98d2   ULL$$DIV
 003e9901   ULL$$MOD
 003e9398   _ADCINT1_ISR
@@ -672,7 +673,7 @@ address    name
 00006400   _Comp1Regs
 00006420   _Comp2Regs
 00006440   _Comp3Regs
-003ea650   _ConfigCpuTimer
+003ea640   _ConfigCpuTimer
 00008ee4   _CpuTimer0
 00000c00   _CpuTimer0Regs
 00008ed4   _CpuTimer1
@@ -683,7 +684,7 @@ address    name
 00000ae0   _CsmRegs
 003e96b4   _CsmUnlock
 003e9343   _DATALOG_ISR
-003ea366   _DIP_Scan
+003ea2da   _DIP_Scan
 0000801b   _DSP28x_usDelay
 003e99b2   _DataFlash_SPI_BUSY_OrNot
 003e99a0   _DataFlash_WriteDisable
@@ -730,9 +731,9 @@ address    name
 00006b00   _EQep1Regs
 00000d01   _EmuBMode
 00000d00   _EmuKey
-003eaa70   _EnableInterrupts
+003eaa60   _EnableInterrupts
 00008fb6   _Error
-003ea9a9   _ExInt_Init
+003ea999   _ExInt_Init
 003e971d   _ExtOscSel
 00008e19   _F_OUT
 00000a80   _FlashRegs
@@ -769,7 +770,7 @@ address    name
 003e933e   _INT14_ISR
 003e8b7e   _InitAdc
 003e8b9c   _InitAdcAio
-003ea60f   _InitCpuTimers
+003ea5ff   _InitCpuTimers
 003e891b   _InitECana_1
 003e9e0b   _InitEPwm
 003e9e1b   _InitEPwm1Gpio
@@ -782,26 +783,26 @@ address    name
 003e9e0c   _InitEPwmGpio
 003e9e9d   _InitEPwmSyncGpio
 00008000   _InitFlash
-003eaca5   _InitGpio
-003eac2e   _InitI2C
-003eac2f   _InitI2CGpio
+003eac8c   _InitGpio
+003eac15   _InitI2C
+003eac16   _InitI2CGpio
 003e9d41   _InitI2C_Gpio
 003ea0b5   _InitLED
 003e9678   _InitPeripheralClocks
-003eaa51   _InitPieCtrl
-003eaa9f   _InitPieVectTable
+003eaa41   _InitPieCtrl
+003eaa69   _InitPieVectTable
 003e9628   _InitPll
-003eabe0   _InitSci
-003eabe1   _InitSciGpio
-003eabe4   _InitSciaGpio
+003eabc7   _InitSci
+003eabc8   _InitSciGpio
+003eabcb   _InitSciaGpio
 003e95fc   _InitSysCtrl
 003e9eae   _InitTzGpio
 003e88fc   _Init_CANA_Gpio
-003ea4a1   _Init_LinaGpio
+003ea415   _Init_LinaGpio
 003e96e5   _IntOsc1Sel
 003e96f5   _IntOsc2Sel
-003ea338   _KEY_Init
-003ea314   _LED_INit
+003ea2ac   _KEY_Init
+003ea288   _LED_INit
 003e943d   _LIN0INTA_ISR
 003e9442   _LIN1INTA_ISR
 003e94a1   _LUF_ISR
@@ -821,7 +822,7 @@ address    name
 003d7e80   _PartIdRegs
 00000ce0   _PieCtrlRegs
 00000d00   _PieVectTable
-003eae60   _PieVectTableInit
+003eae48   _PieVectTableInit
 00008e42   _PtrCanRx
 00008e44   _PtrCanTx
 00008d82   _PtrMsg
@@ -832,7 +833,7 @@ address    name
 003e9433   _SCIRXINTA_ISR
 003e9438   _SCITXINTA_ISR
 003e9525   _SCI_Init
-00008d61   _SCI_Msg
+00008d62   _SCI_Msg
 00008d86   _SEG7Table
 003e9963   _SPIGpio_Init
 003e9415   _SPIRXINTA_ISR
@@ -842,20 +843,20 @@ address    name
 003e99cf   _SPI_Flash_Read
 003e9a05   _SPI_Flash_ReadID
 003e998b   _SPI_INit
-003ea393   _STOP_Scan
+003ea307   _STOP_Scan
 00007050   _SciaRegs
 003e9c12   _SendJS
 00008e1a   _Send_Count
 003e9616   _ServiceDog
-003ea4b1   _SetupSCI
+003ea425   _SetupSCI
 00007040   _SpiaRegs
 00007740   _SpibRegs
 00007010   _SysCtrlRegs
 00000985   _SysPwrCtrlRegs
 003e93b1   _TINT0_ISR
 00008e00   _TM1650
-003ea89e   _Timer0_init
-003ea8c0   _Timer1_init
+003ea88e   _Timer0_init
+003ea8b0   _Timer1_init
 00008fb8   _Tmp
 003e9389   _USER10_ISR
 003e938e   _USER11_ISR
@@ -877,7 +878,7 @@ address    name
 003e9497   _XINT3_ISR
 00007070   _XIntruptRegs
 003e9709   _XtalOscSel
-003ea505   _ZM5168_INit
+003ea479   _ZM5168_INit
 00009000   __CIOBUF_
 00000350   __STACK_END
 00000300   __STACK_SIZE
@@ -885,72 +886,73 @@ address    name
 00000001   __TI_args_main
 003e9add   ___TI_cleanup
 00008e3a   ___TI_cleanup_ptr
-003ea755   ___TI_closefile
-003ea685   ___TI_doflush
+003ea745   ___TI_closefile
+003ea675   ___TI_doflush
 00008e3c   ___TI_dtors_ptr
 00008c00   ___TI_ft_end
 003e880f   ___TI_printfi
-003ea72a   ___TI_rd_ok
+003ea71a   ___TI_rd_ok
 003ea1c3   ___TI_readmsg
 00008cc0   ___TI_tmpnams
 003ea16f   ___TI_writemsg
-003ea6f0   ___TI_wrt_ok
+003ea6e0   ___TI_wrt_ok
 ffffffff   ___binit__
 ffffffff   ___c_args__
-003eb192   ___cinit__
-003ead5e   ___etext__
-003eab2c   ___memcpy_ff
+003eb17a   ___cinit__
+003ead45   ___etext__
+003eaaf6   ___memcpy_ff
 ffffffff   ___pinit__
 003e8000   ___text__
-003eac47   __args_main
-003ead5e   __ctypes_
+003eac2e   __args_main
+003ead46   __ctypes_
 00008c40   __ftable
 00008d7c   __lock
-003ead3c   __nop
-003ead38   __register_lock
-003ead34   __register_unlock
+003ead23   __nop
+003ead1f   __register_lock
+003ead1b   __register_unlock
 00000050   __stack
 00000400   __sys_memory
 00008d7a   __unlock
-003eac60   _abort
-003ea1fd   _adc_isr
+003eac47   _abort
+003ea493   _adc_isr
 003e8f16   _add_device
-003ea94c   _atoi
-003ea85a   _c_int00
+003ea93c   _atoi
+003ea84a   _c_int00
 003e9322   _calloc
 003e9ecf   _canA_isr0
 003e9f07   _canA_isr1
 003e8996   _canMailboxInit
 003e9320   _chkheap
 003e8ee4   _close
-003eabfa   _cpu_timer0_isr
-003eab6c   _cpu_timer1_isr
-003eac62   _exit
-003ea797   _fclose
-003ea6b4   _fflush
+00008d60   _count
+003eabe1   _cpu_timer0_isr
+003eab36   _cpu_timer1_isr
+003eac49   _exit
+003ea787   _fclose
+003ea6a4   _fflush
 003e9b4a   _fopen
-003ea80a   _fputc
+003ea7fa   _fputc
 003e9f90   _fputs
 003e9172   _free
 003e9304   _free_memory
 003e9afa   _freopen
-003ea8dd   _fseek
+003ea8cd   _fseek
 003e8ae4   _handleCANRxFIFO
 003e94b5   _handleRxFIFO
 00008fc0   _i
-003ead2b   _i2c_int1a_isr
+003ead12   _i2c_int1a_isr
 00008e1c   _j
 00008fb7   _key
 00008d80   _keyVal
 00008e40   _lastSendMBox
 003e8ecc   _lseek
-003ea97d   _ltoa
+003ea96d   _ltoa
 003ea035   _main
 003e91db   _malloc
 003e92e4   _max_free
-003eace6   _memccpy
-003eacb8   _memchr
-003eacff   _memset
+003eaccd   _memccpy
+003eac9f   _memchr
+003eace6   _memset
 003e91b7   _minit
 003e95ba   _my_close
 003e95e2   _my_lseek
@@ -962,39 +964,39 @@ ffffffff   ___pinit__
 003e8e5a   _open
 003e9581   _open_uart_debug
 00008fc2   _p
-003ea920   _printf
-003ea80a   _putc
-003ea855   _putchar
+003ea910   _printf
+003ea7fa   _putc
+003ea845   _putchar
 003ea023   _puts
 003e8e42   _read
 003e9234   _realloc
-003ead5b   _remove
+003ead42   _remove
 003e8e28   _remove_device
 003e8dff   _rename
 003e94b0   _rsvd_ISR
 003e9567   _scia_xmit
-003ea597   _setvbuf
-003ead0b   _strchr
-003ead21   _strcmp
-003ead56   _strcpy
-003ead4e   _strlen
-003eaae9   _strncpy
-00008d60   _temp
+003ea587   _setvbuf
+003eacf2   _strchr
+003ead08   _strcmp
+003ead3d   _strcpy
+003ead35   _strlen
+003eaab3   _strncpy
+00008d61   _temp
 00008f8b   _temp1
 00008f8a   _temp2
 00008f88   _temp3
 00008f89   _temp4
 00008efc   _timer0Base
-003eaa79   _uartRx_isr
+003eab72   _uartRx_isr
 003e8de7   _unlink
 003e8d81   _write
 00008e1b   _xfeq
-003eacf3   _xint1_isr
+003eacda   _xint1_isr
 00008fc4   _zm5168_v1
 ffffffff   binit
-003eb192   cinit
+003eb17a   cinit
 003f7ff6   code_start
-003ead5e   etext
+003ead45   etext
 ffffffff   pinit
 
 
@@ -1061,8 +1063,9 @@ address    name
 00008c00   ___TI_ft_end
 00008c40   __ftable
 00008cc0   ___TI_tmpnams
-00008d60   _temp
-00008d61   _SCI_Msg
+00008d60   _count
+00008d61   _temp
+00008d62   _SCI_Msg
 00008d7a   __unlock
 00008d7c   __lock
 00008d80   _keyVal
@@ -1295,100 +1298,100 @@ address    name
 003ea16f   ___TI_writemsg
 003ea1bf   C$$IO$$
 003ea1c3   ___TI_readmsg
-003ea1fd   _adc_isr
-003ea289   FD$$DIV
-003ea314   _LED_INit
-003ea338   _KEY_Init
-003ea366   _DIP_Scan
-003ea393   _STOP_Scan
-003ea39b   FD$$MPY
-003ea41e   FS$$DIV
-003ea4a1   _Init_LinaGpio
-003ea4b1   _SetupSCI
-003ea505   _ZM5168_INit
-003ea51f   FS$$SUB
-003ea524   FS$$ADD
-003ea597   _setvbuf
-003ea60f   _InitCpuTimers
-003ea650   _ConfigCpuTimer
-003ea685   ___TI_doflush
-003ea6b4   _fflush
-003ea6f0   ___TI_wrt_ok
-003ea72a   ___TI_rd_ok
-003ea755   ___TI_closefile
-003ea797   _fclose
-003ea7b0   FS$$MPY
-003ea80a   _fputc
-003ea80a   _putc
-003ea855   _putchar
-003ea85a   _c_int00
-003ea89e   _Timer0_init
-003ea8c0   _Timer1_init
-003ea8dd   _fseek
-003ea920   _printf
-003ea94c   _atoi
-003ea97d   _ltoa
-003ea9a9   _ExInt_Init
-003ea9d4   FD$$CMP
-003ea9fe   L$$DIV
-003eaa0d   L$$MOD
-003eaa1b   UL$$DIV
-003eaa22   UL$$MOD
-003eaa28   FS$$TOL
-003eaa51   _InitPieCtrl
-003eaa70   _EnableInterrupts
-003eaa79   _uartRx_isr
-003eaa9f   _InitPieVectTable
-003eaac4   FS$$TOI
-003eaae9   _strncpy
-003eab0b   FD$$TOI
-003eab2c   ___memcpy_ff
-003eab4d   FD$$TOL
-003eab6c   _cpu_timer1_isr
-003eab8a   LL$$CMP
-003eab9c   ULL$$CMP
-003eaba8   FS$$TOFD
-003eabc4   L$$TOFD
-003eabe0   _InitSci
-003eabe1   _InitSciGpio
-003eabe4   _InitSciaGpio
-003eabfa   _cpu_timer0_isr
-003eac14   I$$TOFS
-003eac2e   _InitI2C
-003eac2f   _InitI2CGpio
-003eac47   __args_main
-003eac60   C$$EXIT
-003eac60   _abort
-003eac62   _exit
-003eac79   LL$$AND
-003eac81   LL$$OR
-003eac89   LL$$XOR
-003eac91   LL$$MPY
-003eaca5   _InitGpio
-003eacb8   _memchr
-003eacc8   U$$TOFS
-003eacd8   FD$$SUB
-003eace6   _memccpy
-003eacf3   _xint1_isr
-003eacff   _memset
-003ead0b   _strchr
-003ead16   U$$DIV
-003ead1b   U$$MOD
-003ead21   _strcmp
-003ead2b   _i2c_int1a_isr
-003ead34   __register_unlock
-003ead38   __register_lock
-003ead3c   __nop
-003ead3d   FD$$NEG
-003ead4e   _strlen
-003ead56   _strcpy
-003ead5b   _remove
-003ead5e   ___etext__
-003ead5e   __ctypes_
-003ead5e   etext
-003eae60   _PieVectTableInit
-003eb192   ___cinit__
-003eb192   cinit
+003ea1fd   FD$$DIV
+003ea288   _LED_INit
+003ea2ac   _KEY_Init
+003ea2da   _DIP_Scan
+003ea307   _STOP_Scan
+003ea30f   FD$$MPY
+003ea392   FS$$DIV
+003ea415   _Init_LinaGpio
+003ea425   _SetupSCI
+003ea479   _ZM5168_INit
+003ea493   _adc_isr
+003ea50f   FS$$SUB
+003ea514   FS$$ADD
+003ea587   _setvbuf
+003ea5ff   _InitCpuTimers
+003ea640   _ConfigCpuTimer
+003ea675   ___TI_doflush
+003ea6a4   _fflush
+003ea6e0   ___TI_wrt_ok
+003ea71a   ___TI_rd_ok
+003ea745   ___TI_closefile
+003ea787   _fclose
+003ea7a0   FS$$MPY
+003ea7fa   _fputc
+003ea7fa   _putc
+003ea845   _putchar
+003ea84a   _c_int00
+003ea88e   _Timer0_init
+003ea8b0   _Timer1_init
+003ea8cd   _fseek
+003ea910   _printf
+003ea93c   _atoi
+003ea96d   _ltoa
+003ea999   _ExInt_Init
+003ea9c4   FD$$CMP
+003ea9ee   L$$DIV
+003ea9fd   L$$MOD
+003eaa0b   UL$$DIV
+003eaa12   UL$$MOD
+003eaa18   FS$$TOL
+003eaa41   _InitPieCtrl
+003eaa60   _EnableInterrupts
+003eaa69   _InitPieVectTable
+003eaa8e   FS$$TOI
+003eaab3   _strncpy
+003eaad5   FD$$TOI
+003eaaf6   ___memcpy_ff
+003eab17   FD$$TOL
+003eab36   _cpu_timer1_isr
+003eab54   LL$$CMP
+003eab66   ULL$$CMP
+003eab72   _uartRx_isr
+003eab8f   FS$$TOFD
+003eabab   L$$TOFD
+003eabc7   _InitSci
+003eabc8   _InitSciGpio
+003eabcb   _InitSciaGpio
+003eabe1   _cpu_timer0_isr
+003eabfb   I$$TOFS
+003eac15   _InitI2C
+003eac16   _InitI2CGpio
+003eac2e   __args_main
+003eac47   C$$EXIT
+003eac47   _abort
+003eac49   _exit
+003eac60   LL$$AND
+003eac68   LL$$OR
+003eac70   LL$$XOR
+003eac78   LL$$MPY
+003eac8c   _InitGpio
+003eac9f   _memchr
+003eacaf   U$$TOFS
+003eacbf   FD$$SUB
+003eaccd   _memccpy
+003eacda   _xint1_isr
+003eace6   _memset
+003eacf2   _strchr
+003eacfd   U$$DIV
+003ead02   U$$MOD
+003ead08   _strcmp
+003ead12   _i2c_int1a_isr
+003ead1b   __register_unlock
+003ead1f   __register_lock
+003ead23   __nop
+003ead24   FD$$NEG
+003ead35   _strlen
+003ead3d   _strcpy
+003ead42   _remove
+003ead45   ___etext__
+003ead45   etext
+003ead46   __ctypes_
+003eae48   _PieVectTableInit
+003eb17a   ___cinit__
+003eb17a   cinit
 003f5000   _RamfuncsLoadStart
 003f7ff6   code_start
 003f7ff8   _CsmPwl
@@ -1398,4 +1401,4 @@ ffffffff   ___pinit__
 ffffffff   binit
 ffffffff   pinit
 
-[395 symbols]
+[396 symbols]

@@ -83,7 +83,7 @@ void handleRxFIFO()
 
 	}
 }
-u16 temp;
+u16 temp,count=0;
 //#################################################
 //串口接收中断函数
 //采用FIFO机制（缓存）
@@ -91,12 +91,13 @@ u16 temp;
 //-----------------------------------------------
 interrupt void uartRx_isr(void)
 {
-	D402TOGGLE();
-	if(SciaRegs.SCIFFRX.bit.RXFFST==1)
+	count++;
+	if(SciaRegs.SCIFFRX.bit.RXFFST==3){
     temp = SciaRegs.SCIRXBUF.bit.RXDT;
 //	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
 	SciaRegs.SCITXBUF = temp;
-	D401TOGGLE();
+//	D401TOGGLE();
+	}
 	SciaRegs.SCIFFRX.bit.RXFFINTCLR = 1;   // Clear Interrupt flag
 	PieCtrlRegs.PIEACK.bit.ACK9 = 1;
 }
@@ -128,7 +129,7 @@ void SCI_Init(Uint32 buad)
     SciaRegs.SCICTL1.bit.SWRESET = 1;     // Relinquish SCI from Reset
     SciaRegs.SCIFFTX.bit.SCIRST=1;
 
-	SciaRegs.SCIFFRX.bit.RXFFIL  = SCI_FIFO_LEN;  //设置FIFO深度
+	SciaRegs.SCIFFRX.bit.RXFFIL  = 3;  //设置FIFO深度
 	SciaRegs.SCICTL1.bit.TXENA = 1;       //使能发送
 	SciaRegs.SCICTL1.bit.RXENA = 1;       //使能接收
 
@@ -137,7 +138,7 @@ void SCI_Init(Uint32 buad)
 //  SciaRegs.SCIFFTX.bit.TXFFIENA = 0; //禁止发送中断使能
 	//中断配置步骤-----1
 	SciaRegs.SCIFFTX.bit.SCIFFENA = 1; //使能FIFO中断
-	SciaRegs.SCIFFRX.bit.RXFFIENA=1;
+	SciaRegs.SCIFFRX.bit.RXFFIENA = 1;
 	EALLOW;
 	PieVectTable.SCIRXINTA = &uartRx_isr; //中断配置步骤-----2
 	EDIS;

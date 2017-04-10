@@ -171,7 +171,7 @@ interrupt void  adc_isr(void)
     if(ADResReg[15]>3164){
     	zm5168_v1.deviceID_State |= 0x0002;
     }
-    SendJS();
+//    SendJS();
 //	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
 //	SciaRegs.SCITXBUF = zm5168_v1.deviceID_State;
 //	SciaRegs.SCITXBUF = zm5168_v1.regulate_V;
@@ -185,6 +185,7 @@ interrupt void  adc_isr(void)
 
 void SendJS(void)
 {
+	u32 *p,i;
     //Wait for the module to be ready to transmit
     while(LinaRegs.SCIFLR.bit.TXRDY == 0);
     //Begin transmission
@@ -204,6 +205,8 @@ void SendJS(void)
     while(LinaRegs.SCIFLR.bit.TXRDY == 0);
     //Begin transmission
     LinaRegs.SCITD = 0x0ff&zm5168_v1.regulate_I;
+
+//    for(i=0;i<)
     return ;
 }
 
