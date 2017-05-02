@@ -83,28 +83,31 @@ void handleRxFIFO()
 
 	}
 }
-u16 temp,count=0;
+u8 temp[80]={0},count=0;
+Uint16 SerDealSta=0;
+Uint16 UartRxLEN=75;
 //#################################################
 //串口接收中断函数
 //采用FIFO机制（缓存）
 //SCI_FIFO_LEN 定义为 1，最大为4
 //-----------------------------------------------
-interrupt void uartRx_isr(void)
-{
-	count++;
-	if(SciaRegs.SCIFFRX.bit.RXFFST==3){
-    temp = SciaRegs.SCIRXBUF.bit.RXDT;
-//	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
-	SciaRegs.SCITXBUF = temp;
-//	D401TOGGLE();
+interrupt void uartRx_isr(void) {
+
+	if (SciaRegs.SCIFFRX.bit.RXFFINT == 1){
+	temp[count] = SciaRegs.SCIRXBUF.bit.RXDT;
+//	SciaRegs.SCITXBUF = temp[count];
+	if(count>=73) {count=0;SerDealSta=0xFF;}
+	if(temp[0]==0xAA){
+
 	}
+	else if(temp[0]==0xA5){
+
+	}
+	}
+	count++;
 	SciaRegs.SCIFFRX.bit.RXFFINTCLR = 1;   // Clear Interrupt flag
 	PieCtrlRegs.PIEACK.bit.ACK9 = 1;
 }
-
-
-
-
 //#################################################
 //-----------------------------------------------
 //串口初始化
@@ -129,7 +132,7 @@ void SCI_Init(Uint32 buad)
     SciaRegs.SCICTL1.bit.SWRESET = 1;     // Relinquish SCI from Reset
     SciaRegs.SCIFFTX.bit.SCIRST=1;
 
-	SciaRegs.SCIFFRX.bit.RXFFIL  = 3;  //设置FIFO深度
+	SciaRegs.SCIFFRX.bit.RXFFIL  = 1;  //设置FIFO深度
 	SciaRegs.SCICTL1.bit.TXENA = 1;       //使能发送
 	SciaRegs.SCICTL1.bit.RXENA = 1;       //使能接收
 
@@ -169,10 +172,6 @@ void scia_xmit(int a)
 	if(WaitTimer <= TIMEROUTSCI)
 		SciaRegs.SCITXBUF=a;
 }
-
-
-
-
 
 
 //-------------------------------以下都为 标准 printf函数连接--------------------------------------------------------------

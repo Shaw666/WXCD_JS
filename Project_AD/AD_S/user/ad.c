@@ -82,21 +82,21 @@ void ADC_Config(void)
 
 //-->HIKE ,AD选择触发源,软件触发 P34
 //	AdcRegs.ADCSOC0CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC1CTL.bit.TRIGSEL 	= 0x00; //ADCTRIG0- Software only
-	AdcRegs.ADCSOC2CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC3CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC4CTL.bit.TRIGSEL 	= 0x00;
+	AdcRegs.ADCSOC1CTL.bit.TRIGSEL 	= 0x02; //ADCTRIG0- Software only
+	AdcRegs.ADCSOC2CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC3CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC4CTL.bit.TRIGSEL 	= 0x02;
 //	AdcRegs.ADCSOC5CTL.bit.TRIGSEL 	= 0x00; //ADCTRIG0- Software only
-	AdcRegs.ADCSOC6CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC7CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC8CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC9CTL.bit.TRIGSEL 	= 0x00; //ADCTRIG0- Software only
-	AdcRegs.ADCSOC10CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC11CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC12CTL.bit.TRIGSEL 	= 0x00;
+	AdcRegs.ADCSOC6CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC7CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC8CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC9CTL.bit.TRIGSEL 	= 0x02; //ADCTRIG0- Software only
+	AdcRegs.ADCSOC10CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC11CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC12CTL.bit.TRIGSEL 	= 0x02;
 //	AdcRegs.ADCSOC13CTL.bit.TRIGSEL 	= 0x00; //ADCTRIG0- Software only
-	AdcRegs.ADCSOC14CTL.bit.TRIGSEL 	= 0x00;
-	AdcRegs.ADCSOC15CTL.bit.TRIGSEL 	= 0x00;
+	AdcRegs.ADCSOC14CTL.bit.TRIGSEL 	= 0x02;
+	AdcRegs.ADCSOC15CTL.bit.TRIGSEL 	= 0x02;
 // 6+13ADC时钟周期
 //	AdcRegs.ADCSOC0CTL.bit.ACQPS 	= 6;
 	AdcRegs.ADCSOC1CTL.bit.ACQPS 	= 6;	//set SOC0 S/H Window to 7 ADC Clock Cycles, (6 ACQPS plus 1)
@@ -141,8 +141,8 @@ interrupt void  adc_isr(void)
     ADResReg[6] =  AdcResult.ADCRESULT6;//定位电压
     ADResReg[7] =  AdcResult.ADCRESULT7;//12v检测 1.9v以下
 
-    zm5168_v1.regulate_V =0x1000;//  AdcResult.ADCRESULT8;//直流输出电压检测 220-2.25
-    zm5168_v1.regulate_I =0x1000;//  AdcResult.ADCRESULT9;//直流输出电流检测 10A-2
+    zm5168_v1.regulate_V =  AdcResult.ADCRESULT8;//直流输出电压检测 220-2.25
+    zm5168_v1.regulate_I =  AdcResult.ADCRESULT9;//直流输出电流检测 10A-2
     ADResReg[10] = AdcResult.ADCRESULT10;//-12v检测 1.8v以下
     ADResReg[11] = AdcResult.ADCRESULT11;//5v检测 1.87以下
     ADResReg[12] = AdcResult.ADCRESULT12;//3.3v检测 2.2以下
@@ -150,62 +150,61 @@ interrupt void  adc_isr(void)
     ADResReg[14] = AdcResult.ADCRESULT14;//乘法器输入 2.5以上
     ADResReg[15] = AdcResult.ADCRESULT15;//220v输出电压保护 2.55v以上
 
-    if(ADResReg[1]>3474){
-    	zm5168_v1.deviceID_State |= 0x0080;
+    if(ADResReg[1]>3474){//接收交流电压过压
+ //   	zm5168_v1.deviceID_State |= 0x0080;
     }
-    if(ADResReg[2]>3474){
-    	zm5168_v1.deviceID_State |= 0x0040;
+    if(ADResReg[2]>3474){//接收交流电流过流
+ //   	zm5168_v1.deviceID_State |= 0x0040;
     }
-    if(ADResReg[7]>2357){
-    	zm5168_v1.deviceID_State |= 0x0020;
+    if(ADResReg[7]>2357){//接收端12v故障
+ //   	zm5168_v1.deviceID_State |= 0x0020;
     }
-    if(ADResReg[10]>2233){
-    	zm5168_v1.deviceID_State |= 0x0010;
+    if(ADResReg[10]>2233){//接收端-12v故障
+  //  	zm5168_v1.deviceID_State |= 0x0010;
     }
-    if(ADResReg[11]>2320){
-    	zm5168_v1.deviceID_State |= 0x0008;
+    if(ADResReg[11]>2320){//接收端5v故障
+ //   	zm5168_v1.deviceID_State |= 0x0008;
     }
-    if(ADResReg[12]>2730){
-    	zm5168_v1.deviceID_State |= 0x0004;
+    if(ADResReg[12]>2730){//接收端3.3故障
+ //   	zm5168_v1.deviceID_State |= 0x0004;
     }
-    if(ADResReg[15]>3164){
+    if(ADResReg[15]>3164){//接收端220过压
     	zm5168_v1.deviceID_State |= 0x0002;
     }
-//    SendJS();
+    SendJS();
 //	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
 //	SciaRegs.SCITXBUF = zm5168_v1.deviceID_State;
 //	SciaRegs.SCITXBUF = zm5168_v1.regulate_V;
 //	SciaRegs.SCITXBUF = zm5168_v1.regulate_I;
 
 //0111 1011 1111 1011
-	AdcRegs.ADCSOCFRC1.all = 0X7BFB; //软件触发AD 的 SOC0--SOC3采样
+//	AdcRegs.ADCSOCFRC1.all = 0X7BFB; //软件触发AD 的 SOC0--SOC3采样
 
 //	printf("\r\nAD Result is SOC0-A1:%0.2fV  SOC1-B1:%0.2fV  SOC2-A1:%0.2fV  SOC3-B1:%0.2fV",(float)((AdcResult.ADCRESULT0)*3.3/4096),(float)((AdcResult.ADCRESULT1)*3.3/4096),(float)((AdcResult.ADCRESULT2)*3.3/4096),(float)((AdcResult.ADCRESULT3)*3.3/4096));
 }
 
 void SendJS(void)
 {
-	u32 *p,i;
     //Wait for the module to be ready to transmit
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = (0xff00&zm5168_v1.deviceID_State)>>8;
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+	SciaRegs.SCITXBUF = (0xff00&zm5168_v1.deviceID_State)>>8;
+    while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = 0x0ff&zm5168_v1.deviceID_State;
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    SciaRegs.SCITXBUF = 0x0ff&zm5168_v1.deviceID_State;
+    while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = (0xff00&zm5168_v1.regulate_V)>>8;
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    SciaRegs.SCITXBUF = (0xff00&zm5168_v1.regulate_V)>>8;
+    while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = 0x0ff&zm5168_v1.regulate_V;
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    SciaRegs.SCITXBUF = 0x0ff&zm5168_v1.regulate_V;
+    while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = (0xff00&zm5168_v1.regulate_I)>>8;
-    while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+    SciaRegs.SCITXBUF = (0xff00&zm5168_v1.regulate_I)>>8;
+    while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
     //Begin transmission
-    LinaRegs.SCITD = 0x0ff&zm5168_v1.regulate_I;
-
+    SciaRegs.SCITXBUF = 0x0ff&zm5168_v1.regulate_I;
+    zm5168_v1.deviceID_State=0xA500;
 //    for(i=0;i<)
     return ;
 }

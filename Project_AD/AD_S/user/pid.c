@@ -96,6 +96,7 @@ __interrupt void cpu_timer1_isr(void)
    if(CpuTimer1.InterruptCount%20==0)
    {
 	   CpuTimer1.InterruptCount=0;
+	   D402TOGGLE();
 //	   PID_Control_V();
 //	   Upper_Uart();
    }

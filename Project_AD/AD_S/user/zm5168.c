@@ -118,4 +118,99 @@ void ZM5168_INit(void)
 
 	GpioDataRegs.GPACLEAR.bit.GPIO6 = 1;  	//GPIO6输出低电平
 	DELAY_US(1024);                        //延时1024us
+
+	ReadLocalConf();
+
 }
+//发送协议标志
+u8 SendAgreementFlag()
+{
+	u8 res=0;
+	scia_xmit(Agreement_1);
+	scia_xmit(Agreement_2);
+	scia_xmit(Agreement_3);
+	return res;
+}
+
+DEV_INFO zm5168_p2={0};
+Uint16 x,y,z;
+void LocalConfDeal()
+{
+	Uint16 i,j=4;
+	for(i=0,j=4;i<8;i++,j++){
+		zm5168_p2.DevName[i] = 0xff00&(temp[j]<<8);
+	    zm5168_p2.DevName[i] |= 0x00ff&temp[++j];
+	}
+	for(i=0;i<8;i++,j++){
+		zm5168_p2.DevPwd[i] = 0xff00&(temp[j]<<8);
+		zm5168_p2.DevPwd[i] |= 0x00ff&temp[++j];
+	}
+	zm5168_p2.DevMode_Chan = temp[36]<<8|temp[37];
+	zm5168_p2.PanID = temp[38]<<8|temp[39];
+	zm5168_p2.MyAddr = temp[40]<<8|temp[41];
+	for(i=0,j=42;i<4;i++,j++){
+		zm5168_p2.MyIEEE[i] = 0xff00&(temp[j]<<8);
+		zm5168_p2.MyIEEE[i] |= 0x00ff&temp[++j];
+	}
+	zm5168_p2.DstAddr = temp[50]<<8|temp[51];
+	for(i=0,j=52;i<4;i++,j++){
+		zm5168_p2.DstIEEE[i] = 0xff00&(temp[j]<<8);
+		zm5168_p2.DstIEEE[i] |= 0x00ff&temp[++j];
+	}
+	zm5168_p2.Reserve_PowerLevel = temp[60]<<8|temp[61];
+	zm5168_p2.RetryNum_TranTimeout = temp[62]<<8|temp[63];
+	zm5168_p2.Serial_Rate_Serial_DataB = temp[64]<<8|temp[65];
+	zm5168_p2.Serial_StopB_Serial_ParityB = temp[66]<<8|temp[67];
+	zm5168_p2.SendMode = temp[68];
+}
+
+//读取本地配置
+u8 ReadLocalConf()
+{
+	u8 res=0x00;
+//	u8 retry=0;
+	UartRxLEN=73;
+	SendAgreementFlag();
+	scia_xmit(RLocalConf);
+	res=0x0ff&(Agreement_1+Agreement_2+Agreement_3+RLocalConf);
+	scia_xmit(res);
+	res=0x00;
+	return res;
+}
+//设置通道号
+u8 SetChanelNum(u8 chanelnum)
+{
+	u8 res=0;
+	return res;
+}
+//搜索
+u8 SearchDevice()
+{
+	u8 res=0;
+	return res;
+}
+//获取远程配置信息
+u8 ReadRemoteConf(u16 remoteadress)
+{
+	u8 res=0;
+	return res;
+}
+//修改配置命令
+u8 WriteConf(u16 deviceadress)
+{
+	u8 res=0;
+	return res;
+}
+//复位设备
+u8 ResetDevice(u16 deviceadress, u16 devicetype)
+{
+	u8 res=0;
+	return res;
+}
+//回复出厂设置
+u8 RestoreDevice(u16 deviceadress, u16 devicetype)
+{
+	u8 res=0;
+	return res;
+}
+

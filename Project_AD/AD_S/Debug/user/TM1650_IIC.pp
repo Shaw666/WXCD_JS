@@ -42,7 +42,7 @@ user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/TM1650_II
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/ad.h
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/pid.h
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/DataScope_DP.h
-user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/led.h
+user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/gpio.h
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Exint.h
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/zm5168.h
 user/TM1650_IIC.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/sim_spi.h
@@ -90,7 +90,7 @@ E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/TM1650_IIC.h:
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/ad.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/pid.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/DataScope_DP.h: 
-E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/led.h: 
+E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/gpio.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Exint.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/zm5168.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/sim_spi.h: 

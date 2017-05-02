@@ -40,16 +40,17 @@ void main(void) {
 	D401ON();
 	D402LOW();
 
-	LED_INit();   //初始化LED 区别收发
+	GPIO_INit();   //初始化LED 区别收发
 	KEY_Init();   //初始化拨码开关 区别收发
 	ExInt_Init(); //初始化外部中断 急停按钮 发射
-
+	EALLOW;
+	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC =0;
+	EDIS;
 	Timer0_init(); //初始化定时器0用于定时处理相关任务
-//	Timer1_init(); //初始化定时器1用于定时处理PID 区别收发
 
 	SCI_Init(115200);   //初始化SCI用于调试串口
 	SetupSCI(128000);
-	ZM5168_INit();              //初始化zm5168_P0模块
+
 	open_uart_debug();
 
 	//TM1650 IIC初始化
@@ -58,10 +59,14 @@ void main(void) {
 	SPI_INit();
 //	EPWM1_Config(1500);         //初始化PWM20k 1us死区 区别收发
 //	EPWM2_Config(3000);
-
+	EALLOW;
+	EDIS;
+	ZM5168_INit();              //初始化zm5168_P0模块
 	ADC_Config(); //初始化ADC 区别收发
-	AdcRegs.ADCSOCFRC1.all = 0Xffff; //软件触发AD 的 SOC0--SOC3采样
+	Timer1_init(); //初始化定时器1
+//	AdcRegs.ADCSOCFRC1.all = 0Xffff; //软件触发AD 的 SOC0--SOC3采样
 	//中断配置步骤-----5
+	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC =1;
 	PieCtrlRegs.PIECTRL.bit.ENPIE = 1;          // Enable the PIE block
 	EINT;  // Enable Global interrupt INTM
 	ERTM;
@@ -70,7 +75,11 @@ void main(void) {
 
     while(1) 
     {
-
+		if(SerDealSta==0xff){
+			LocalConfDeal();
+			D401LOW();
+			//break;
+		}
     	if(timer0Base.Mark_Para.Status_Bits.OnemsdFlag == 1)
     	{
     		timer0Base.Mark_Para.Status_Bits.OnemsdFlag = 0;
@@ -78,7 +87,10 @@ void main(void) {
     		//向发射端发送消息 并记录状态
     		//切断继电器
     		}
+
     		if(timer0Base.msCounter>=200){
+				timer0Base.msCounter = 0;
+				D402TOGGLE();
 
     		switch(key){
     		case 0x01:  {GpioDataRegs.GPASET.bit.GPIO4 = 1;	break;}	//GPIO10输出高电平
@@ -87,11 +99,6 @@ void main(void) {
     		case 0x08:	{GpioDataRegs.GPASET.bit.GPIO5 = 0;	break;}	//GPIO10输出高电平
     		}
     		}
-			if(timer0Base.msCounter >= 1000)//ms
-			{
-				timer0Base.msCounter = 0;
-
-			}
     	  }
 
     }
