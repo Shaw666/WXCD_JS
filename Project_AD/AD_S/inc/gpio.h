@@ -25,18 +25,7 @@
 #define Excep_jygy 0x03 //降压模块过压
 //********************分隔符***********************************
 
-//发射端读取按键宏定义
-//#define DIP0() GpioDataRegs.GPADAT.bit.GPIO7
-//#define DIP1() GpioDataRegs.GPADAT.bit.GPIO12
-//#define DIP2() GpioDataRegs.GPADAT.bit.GPIO18
-//#define DIP3() GpioDataRegs.GPADAT.bit.GPIO22
-//#define qdyckey() GpioDataRegs.GPADAT.bit.GPIO3
-//#define Excep_qdyc 0x01 //驱动异常
-//风扇开关
-extern u8 key;
-
 void GPIO_INit(void);
-void KEY_Init(void);
 void DIP_Scan(void);
 u8 STOP_Scan(void);
 #endif /* LED_H_ */

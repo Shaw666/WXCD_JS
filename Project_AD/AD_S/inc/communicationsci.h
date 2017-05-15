@@ -1,5 +1,5 @@
-#ifndef  __PRINTF_UART_H
-#define  __PRINTF_UART_H
+#ifndef  __COMMUNICATIONSCI_H
+#define  __COMMUNICATIONSCI_H
 
 #include <stdio.h>
 #include <file.h>
@@ -9,12 +9,10 @@
 
 #define RTU_TIMEROUT 5 //ms
 
-#define SCI_FIFO_LEN  4 //定义DSP串口FIFO深度
+#define SCI_FIFO_LEN  1 //定义DSP串口FIFO深度
 #define UartTxLEN 20  //发送缓存长度
 
 extern Uint16 UartRxLEN;  //接收缓存长度
-
-extern u8 temp[80];
 
 typedef struct Uart_Type{
 	union
@@ -45,11 +43,15 @@ extern Uart_Msg SCI_Msg;
 //--------------------------------------------------------------------
 void handleRxFIFO(void);
 void SCI_Init(Uint32 buad);
-void scia_xmit(int a);
+Uint16 SendRequestSCI(Uint16 tmp);
+void ResponseSCI(Uint16* tmp);
+
+
 void open_uart_debug (void);
 int printf(const char* str, ...); 
 interrupt void uartRx_isr(void);
 
+void scia_xmit(int a);
 //---------------------------------------------------------------------
 int my_open(const char *path, unsigned flags, int fno);
 int my_close(int fno);

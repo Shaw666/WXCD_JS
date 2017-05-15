@@ -5,7 +5,7 @@
  *      Author: Shaw
  */
 #include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
-#include "HK_all_include.h"
+#include "Module_Project.h"
 
 #define PVAL_V (PID_V.Error-PID_V.Last1Error)
 #define IVAL_V (PID_V.Error)
@@ -75,7 +75,7 @@ void PID_Control_V(void)     //电压环
 
 	PID_V.MySetPoint =2.8*4095/3.3;
 		//36*97.54;                 //12*4095/24/3.3;    620.4
-	PID_V.Input = ADResReg[15];  //  输入为输出电压
+	PID_V.Input = 1;  //  输入为输出电压
 	
 	PID_V.Error = PID_V.MySetPoint-PID_V.Input; 
 	
@@ -96,9 +96,10 @@ __interrupt void cpu_timer1_isr(void)
    if(CpuTimer1.InterruptCount%20==0)
    {
 	   CpuTimer1.InterruptCount=0;
-	   D402TOGGLE();
+//	   D402TOGGLE();
 //	   PID_Control_V();
-//	   Upper_Uart();
+	   Upper_Uart();
+	   AdcRegs.ADCSOCFRC1.all = 0xdfde; //软件触发AD 的 SOC0--SOC3采样
    }
   // Acknowledge this interrupt to receive more interrupts from group 1
    EDIS;
@@ -109,15 +110,12 @@ unsigned char Send_Count; //串口需要发送的数据个数
 int j=0;     //串口发送数据计数
 void Upper_Uart(void)//上位机发送程序
 {
-	DataScope_Get_Channel_Data(ADResReg[15],1);   //将电压环PID输入 写入通道 1
-	DataScope_Get_Channel_Data(ADResReg[14]*3.3/4095.0,2);   //将电压环PID输入 写入通道 1
-//	DataScope_Get_Channel_Data(ADResReg[13]*3.3/4095.0,3);   //将电压环PID输入 写入通道 1
-//	DataScope_Get_Channel_Data(ADResReg[12]*3.3/4095.0,4);   //将电压环PID输入 写入通道 1
+	DataScope_Get_Channel_Data(1,1);   //将电压环PID输入 写入通道 1
 
 	/*******************
 	串口发送数据给上位机
 	********************/
-	Send_Count = DataScope_Data_Generate(2); //生成4个通道的 格式化帧数据，返回帧数据长度
+	Send_Count = DataScope_Data_Generate(10); //生成4个通道的 格式化帧数据，返回帧数据长度
     for( j = 0;j<Send_Count;j++)  //循环发送,直到发送完毕
 	{
 //    	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);

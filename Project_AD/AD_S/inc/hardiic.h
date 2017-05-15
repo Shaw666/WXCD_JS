@@ -1,25 +1,10 @@
-/*
- * at24c02.h
- *
- *  Created on: 2014-8-7
- *      Author: cotto
- */
-
-#ifndef TM1650_IIC_H_
-#define TM1650_IIC_H_
+#ifndef HARDIIC_H_
+#define HARDIIC_H_
 
 #define IIC_NODE_NUM 2 //IIC节点数，2个，分别是 TM1650/AT24C02
 
 #define AT24CO2_TIMER_OUT  3 //ms为单位
 #define IIC_RST_BIT        0X0020      //IIC 复位
-
-//S101 S102在TM1650扫描下的返回键码值
-#define S101_CODE 0x44
-#define S102_CODE 0x4C
-
-#define S100_CODE 0x00//S100为独立按键，按下为 0x00
-
-extern char keyVal,keyReg,LigntVal;
 
 // Status Flags
 #define I2C_AL_BIT          0x0001

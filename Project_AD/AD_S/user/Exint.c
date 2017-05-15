@@ -5,7 +5,7 @@
  *      Author: Shaw
  */
 #include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
-#include "HK_all_include.h"
+#include "Module_Project.h"
 
 void ExInt_Init(void);
 interrupt void xint1_isr(void);
@@ -18,13 +18,6 @@ interrupt void xint1_isr(void);
 //---------------------------------------------------------------------------------------------
 void ExInt_Init(void)
 {
-	EALLOW;									//GPIO寄存器受保护
-	GpioCtrlRegs.GPAMUX1.bit.GPIO12= 0;		//GPIO12作为普通IO
-	GpioCtrlRegs.GPADIR.bit.GPIO12 = 0;		//GPIO12方向为输入
-	GpioCtrlRegs.GPAPUD.bit.GPIO12 = 1;		//禁用内部上拉
-	GpioCtrlRegs.GPAQSEL1.bit.GPIO12 = 0;   // 引脚采样与系统时钟同步
-	EDIS;
-
 	//中断配置步骤-----2，重映射中断服务函数
 	EALLOW;	
     PieVectTable.XINT1 = &xint1_isr;

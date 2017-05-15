@@ -25,7 +25,7 @@
 
 //串口调试助手设置：128000 8N1
 
-#include "HK_all_include.h"
+#include "Module_Project.h"
 interrupt void canA_isr0(void);
 interrupt void canA_isr1(void);
 
@@ -600,8 +600,7 @@ void handleCANRxFIFO()
 			//点亮LED
 			switch(PtrCanRx->rxData[PtrCanRx->rxReadIndex][0])
 			{
-			   case '1':  D401TOGGLE();break;
-			   case '2':  D402TOGGLE();break;
+
 			   default:break;
 			}
 			//数码管显示低2个字节的数据

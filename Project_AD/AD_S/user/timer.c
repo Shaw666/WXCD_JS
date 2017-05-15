@@ -5,7 +5,7 @@
  *      Author: Shaw
  */
 #include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
-#include "HK_all_include.h"
+#include "Module_Project.h"
 
 
 timer0 timer0Base={0,0};
@@ -65,12 +65,6 @@ __interrupt void cpu_timer0_isr(void)
 
    timer0Base.msCounter++;
    timer0Base.Mark_Para.Status_Bits.OnemsdFlag = 1;
-
-   //串口通讯处理
-   if(SCI_Msg.Mark_Para.Status_Bits.rFifoDataflag == 1)
-   {
-	   SCI_Msg.timerOut++;
-   }
 
    // Acknowledge this interrupt to receive more interrupts from group 1
 	EALLOW;

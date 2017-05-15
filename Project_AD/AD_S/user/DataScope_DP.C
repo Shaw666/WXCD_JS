@@ -1,5 +1,5 @@
 #include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
-#include "HK_all_include.h"
+#include "Module_Project.h"
 
  
 unsigned char DataScope_OutPut_Buffer[42] = {0};	   //´®¿Ú·¢ËÍ»º³åÇø

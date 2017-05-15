@@ -5,7 +5,7 @@
  *      Author: M新动力
  */
 #include "DSP28x_Project.h"     // Device Headerfile and Examples Include File
-#include "HK_all_include.h"
+#include "Module_Project.h"
 
 char keyVal,LigntVal;
 I2CSlaveMSG MCP79411;
@@ -20,21 +20,6 @@ __interrupt void i2c_int1a_isr(void);
 //Uint16 MsgInBuffer[I2C_MAX_BUFFER_SIZE]; //发送数组，最大4个深度
 //Uint16 MsgOutBuffer[I2C_MAX_BUFFER_SIZE];//接收数组，最大4个深度
 //Uint16 IIC_TimerOUT;          //软件定义的超时变量
-
-I2CSlaveMSG ICF8591Msg[]={
-		{
-			{0},
-			0,
-			IIC_IDLE,
-			0,
-			0,
-			0,
-			{0},
-			{0},
-			0
-		}
-};
-
 
 // Interrupt Source Messages
 //#define I2C_NO_ISRC             0x0000
