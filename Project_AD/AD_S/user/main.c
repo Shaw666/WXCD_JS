@@ -28,15 +28,14 @@ void main(void)
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC =0;
 	EDIS;
 	ADC_Config(); //初始化ADC 区别收发
-//	Timer0_init(); //初始化定时器0用于定时处理相关任务
+	Timer0_init(); //初始化定时器0用于定时处理相关任务
 //	Timer1_init();
-	SCI_Init(115200);   //初始化SCI用于调试串口
-//	SetupSCI(115200);
+	SCI_Init(57600);   //初始化SCI用于调试串口
+	SetupSCI(115200);
 //	open_uart_debug();
-//	InitI2C_Gpio();             //io 初始化为IIC
 //	I2CA_Init();                //HW IIC初始化，100KHz
 //	SPI_INit();
-//	ZM5168_INit();              //初始化zm5168_P0模块
+	ZM5168_INit();              //初始化zm5168_P0模块
 	EALLOW;
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC =1;
 	EDIS;
@@ -46,37 +45,24 @@ void main(void)
 	ERTM;
 	AdcRegs.ADCSOCFRC1.all = 0X9FDE;
 //	DIP_Scan();   //开机扫描一次拨码开关
+	DealRxLenth = 5;
     while(1) 
     {
-    	GpioDataRegs.GPASET.bit.GPIO4 = 0;
-		if(0){
-			LocalConfDeal();
-			//break;
-		}
-    	if(timer0Base.Mark_Para.Status_Bits.OnemsdFlag == 1)
-    	{
-    		timer0Base.Mark_Para.Status_Bits.OnemsdFlag = 0;
-    		if(STOP_Scan()==Excep_jygy){//降压模块输出过压 通知前端结束传输
-    		//向发射端发送消息 并记录状态
-    		//切断继电器
-    		}
+  //  	if(timer0Base.Mark_Para.Status_Bits.OnemsdFlag == 1)
 
-    		if(timer0Base.msCounter>=200){
+//    		if(STOP_Scan()==Excep_jygy){//降压模块输出过压 通知前端结束传输
+//    		//向发射端发送消息 并记录状态
+//    		//切断继电器
+//    		}
+    	if(timer0Base.msCounter>=50){
+//    		GpioDataRegs.GPATOGGLE.bit.GPIO5 = 1;
 				timer0Base.msCounter = 0;
-
-
-    		switch(0x09){
-    		case 0x01:  {GpioDataRegs.GPASET.bit.GPIO4 = 1;	break;}	//GPIO10输出高电平
-    		case 0x02:	{GpioDataRegs.GPASET.bit.GPIO5 = 1;	break;}	//GPIO10输出高电平
-    		case 0x04:	{GpioDataRegs.GPASET.bit.GPIO4 = 0;	break;}	//GPIO10输出高电平
-    		case 0x08:	{GpioDataRegs.GPASET.bit.GPIO5 = 0;	break;}	//GPIO10输出高电平
+				SendRequestSCI(0xA2);//发送输出电压
+				AdcRegs.ADCSOCFRC1.all = 0X9FDE;
+ //   			Upper_Uart();
     		}
-    		}
-    	  }
-    	GpioDataRegs.GPASET.bit.GPIO4 = 0;
-    }
 }									
-
+}
 //===========================================================================
 // No more.
 //===========================================================================

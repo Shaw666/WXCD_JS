@@ -9,12 +9,12 @@
 
 
 
-extern float Set_Volt;
-extern int bianV;
-extern u16 V_OUT;
-
-
-void PID_Init(void);
-void PID_Control_V(void);
+//extern float Set_Volt;
+//extern int bianV;
+//extern u16 V_OUT;
+//
+//
+//void PID_Init(void);
+//void PID_Control_V(void);
 void Upper_Uart(void);//上位机发送程序
 #endif

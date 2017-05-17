@@ -6,6 +6,69 @@ __interrupt void Module_SciaRxFIFO(void);
 
 union Module_Fault_REG ModuleFault;
 
+void SetupSCI(Uint32 buad)
+{
+	Uint16 brr_reg = (1875000 / buad) - 1;	//15000000/8 = 1875000
+	//Allow write to protected registers
+	EALLOW;
+
+	GpioCtrlRegs.GPAPUD.bit.GPIO18 = 0;		// Enable pull-up for GPIO22 (LIN TX)
+	GpioCtrlRegs.GPAPUD.bit.GPIO19 = 0;		// Enable pull-up for GPIO23 (LIN RX)
+	GpioCtrlRegs.GPAQSEL2.bit.GPIO19 = 3;  // Asynch input GPIO23 (LINRXA)
+	GpioCtrlRegs.GPAMUX2.bit.GPIO18 = 2;   // Configure GPIO19 for LIN TX operation	 (3-Enable,0-Disable)
+	GpioCtrlRegs.GPAMUX2.bit.GPIO19 = 2;   // Configure GPIO23 for LIN RX operati
+
+	LinaRegs.SCIGCR0.bit.RESET = 0; //Into reset
+	LinaRegs.SCIGCR0.bit.RESET = 1; //Out of reset
+
+	LinaRegs.SCIGCR1.bit.SWnRST = 0; //Into software reset
+
+	//SCI Configurations
+	LinaRegs.SCIGCR1.bit.COMMMODE = 0;   //Idle-Line Mode
+	LinaRegs.SCIGCR1.bit.TIMINGMODE = 1; //Asynchronous Timing
+	LinaRegs.SCIGCR1.bit.PARITYENA = 0;  //No Parity Check
+	LinaRegs.SCIGCR1.bit.PARITY = 0;	 //Odd Parity
+	LinaRegs.SCIGCR1.bit.STOP = 0;		 //One Stop Bit
+	LinaRegs.SCIGCR1.bit.CLK_MASTER = 1; //Enable SCI Clock
+	LinaRegs.SCIGCR1.bit.LINMODE = 0;	 //SCI Mode
+	LinaRegs.SCIGCR1.bit.SLEEP = 0;      //Ensure Out of Sleep
+	LinaRegs.SCIGCR1.bit.MBUFMODE = 0;	 //No Buffers Mode
+	LinaRegs.SCIGCR1.bit.LOOPBACK = 0;   //External Loopback
+	LinaRegs.SCIGCR1.bit.CONT = 1;		 //Continue on Suspend
+	LinaRegs.SCIGCR1.bit.RXENA = 1;		 //Enable RX
+	LinaRegs.SCIGCR1.bit.TXENA = 1;		 //Enable TX
+
+	//Ensure IODFT is disabled
+    LinaRegs.IODFTCTRL.bit.IODFTENA = 0x0;
+
+    //Set transmission length
+    LinaRegs.SCIFORMAT.bit.CHAR = 7;	 //Eight bits
+    LinaRegs.SCIFORMAT.bit.LENGTH = 0;   //One byte
+
+	//Set baudrate
+    LinaRegs.BRSR.bit.SCI_LIN_PSL =  brr_reg & 0x00FF; //0XC2-->9600 ; 97--> 19200 ;0x30-->38400;14-->128000
+    LinaRegs.BRSR.bit.SCI_LIN_PSH = (brr_reg >> 8) & 0x00FF;
+    // baud = LSPCLK/8/((BRR+1)
+
+    LinaRegs.BRSR.bit.M = 5;
+
+    LinaRegs.SCIGCR1.bit.SWnRST = 1;  //bring out of software reset
+
+	//Disable write to protected registers
+	EDIS;
+	//等待准备完毕
+	while(LinaRegs.SCIFLR.bit.IDLE == 1);
+//	//Wait for a charachter to by typed
+//	if(LinaRegs.SCIFLR.bit.RXRDY == 1)
+//	{
+//		ReceivedChar = LinaRegs.SCIRD;
+//
+//		//Wait for the module to be ready to transmit
+//		while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+//		//Begin transmission
+//		LinaRegs.SCITD = ReceivedChar;
+//	}
+}
 
 
 void SCI_Init(Uint32 buad) {
@@ -26,6 +89,7 @@ void SCI_Init(Uint32 buad) {
 	SciaRegs.SCIFFTX.bit.SCIRST = 1;
 
 	SciaRegs.SCIFFRX.bit.RXFFIL = 1;  //设置FIFO深度
+	SciaRegs.SCIFFTX.bit.TXFFIL = 1;  //设置FIFO深度
 	SciaRegs.SCICTL1.bit.TXENA = 1;       //使能发送
 	SciaRegs.SCICTL1.bit.RXENA = 1;       //使能接收
 
@@ -40,9 +104,7 @@ void SCI_Init(Uint32 buad) {
 	EDIS;
 	PieCtrlRegs.PIEIER9.bit.INTx1 = 1;    //中断配置步骤-----3
 	IER |= M_INT9;						  //中断配置步骤-----4
-
 	SciaRegs.SCIFFCT.all = 0x00;
-
 	SciaRegs.SCIFFTX.bit.TXFIFOXRESET = 1;
 	SciaRegs.SCIFFRX.bit.RXFIFORESET = 1;
 }
@@ -56,20 +118,17 @@ void Module_SciaRxFIFO(void)  //串口接收中断
 	Uint16 data, rankCount;
 
 	while (SciaRegs.SCIFFRX.bit.RXFFST > 0) {
-		if (SciaReceiveCount < 5) {
+		if (SciaReceiveCount < DealRxLenth) {
 			data = SciaRegs.SCIRXBUF.all;
 			SciaReceiveBuff[SciaReceiveCount++] = data;
+			LinaRegs.SCITD = data;
 		}
 	}
 
-	if (SciaReceiveCount >= 5) {
+	if (SciaReceiveCount >= DealRxLenth) {
 		switch (SciaReceiveBuff[0]) {
 		case 0x51:
 //PFC后电压电流
-			break;
-		case 0x52:
-			SendRequestSCI(0xA2);
-//前级全桥IGBT温度
 			break;
 		case 0x55:
 //前级状态帧
@@ -202,7 +261,7 @@ Uint16 SendRequestSCI(Uint16 tmp) {
 			while (SciaRegs.SCIFFTX.bit.TXFFST != 0){
 				SciaSendTimeoutCount++;
 				if (SciaSendTimeoutCount >= 200)
-					return 0x01;   //发送超时
+					break;   //发送超时
 			}
 			//Begin transmission
 			SciaRegs.SCITXBUF = SciaSendBuff[SciaSendCount];
@@ -230,9 +289,11 @@ Uint16 SendRequestSCI(Uint16 tmp) {
 //-----------------------------------------------
 //Printf 函数连接
 //-----------------------------------------------
-void scia_xmit(int a) {
+void scia_xmit(Uint16 a) {
 	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);
 	SciaRegs.SCITXBUF = a;
+//	while(LinaRegs.SCIFLR.bit.TXRDY == 0);
+//	LinaRegs.SCITD = a;
 }
 
 void open_uart_debug(void) {

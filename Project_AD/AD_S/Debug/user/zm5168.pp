@@ -1,8 +1,7 @@
 # FIXED
 
 user/zm5168.obj: ../user/zm5168.c
-user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP28x_Project.h
-user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_typedefs.h
+user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_Device.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_Adc.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_BootVars.h
@@ -31,9 +30,10 @@ user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_I2c_defines.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_defines.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_DefaultISR.h
-user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/GlobalVariableDefAndInits.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h
+user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP28x_Project.h
+user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_typedefs.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/timer.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/CANcomm.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/communicationsci.h
@@ -51,8 +51,7 @@ user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/zm5168.h
 user/zm5168.obj: E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/sim_spi.h
 
 ../user/zm5168.c: 
-E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP28x_Project.h: 
-E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_typedefs.h: 
+E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_Device.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_Adc.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_headers/include/DSP2803x_BootVars.h: 
@@ -81,9 +80,10 @@ E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_EPwm_defines.h:
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_I2c_defines.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_defines.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_DefaultISR.h: 
-E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/GlobalVariableDefAndInits.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/Module_Project.h: 
+E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP28x_Project.h: 
+E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/include/DSP2803x_Cla_typedefs.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/timer.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/CANcomm.h: 
 E:/workspace_v5_5_pfc/WXCD_JS/Project_AD/AD_S/inc/communicationsci.h: 

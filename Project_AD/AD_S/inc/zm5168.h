@@ -74,14 +74,16 @@ typedef struct DEV_INFO_TYPE{
 extern DEV_INFO zm5168_p2;
 
 
-
 u8 SetLocalConf();
 u8 SetChanelNum(u8 chanelnum);
-void LocalConfDeal();
+void LocalConfDeal(Uint16 temp[74]);
 u8 ReadLocalConf();
+Uint16 WriteConf(Uint16 deviceadress, Uint16 setTemp[74]);
+Uint16 ResetDevice(Uint16 deviceTypeh, Uint16 deviceTypel);
+u8 SearchDevice();
 
 
 void ZM5168_INit(void);
-void SetupSCI(Uint32 buad);
+
 
 #endif /* ZM5168_H_ */

@@ -143,7 +143,7 @@ all: WXCD_JS.out
 WXCD_JS.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/bin/cl2000" -v28 -ml -mt --cla_support=cla0 -g --diag_warning=225 --display_error_number --diag_wrap=off -z -m"WXCD_JS.map" --stack_size=0x300 --warn_sections -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/lib" -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/include" -i"E:/workspace_v5_5_pfc/WXCD_JS" -i"E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/lib" -i"E:/workspace_v5_5_pfc/WXCD_JS/IQmath/v160/lib" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="WXCD_JS_linkInfo.xml" --rom_model -o "WXCD_JS.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/bin/cl2000" -v28 -ml -mt --cla_support=cla0 -g --diag_warning=225 --display_error_number --diag_wrap=off -z -m"WXCD_JS.map" --heap_size=0x300 --stack_size=0x300 --warn_sections -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/lib" -i"C:/ti/ccsv5/tools/compiler/c2000_6.2.0/include" -i"E:/workspace_v5_5_pfc/WXCD_JS" -i"E:/workspace_v5_5_pfc/WXCD_JS/DSP2803x_common/lib" -i"E:/workspace_v5_5_pfc/WXCD_JS/IQmath/v160/lib" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="WXCD_JS_linkInfo.xml" --rom_model -o "WXCD_JS.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build

@@ -135,7 +135,7 @@ void Init_GlobalVariable(void)
 		ModuleCtlReg.OverloadTimeCount				    = 0;
 
 		// IO Init
-		RELAYA_OFF();
+		RELAYON();
 
 
 }

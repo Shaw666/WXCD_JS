@@ -21,7 +21,6 @@ typedef struct timer0_Type{
 }timer0;
 
 extern timer0 timer0Base;
-__interrupt void cpu_timer1_isr(void);
 
 void Timer0_init(void);
 void Timer1_init(void);

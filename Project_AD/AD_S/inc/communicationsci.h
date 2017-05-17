@@ -9,40 +9,13 @@
 
 #define RTU_TIMEROUT 5 //ms
 
-#define SCI_FIFO_LEN  1 //定义DSP串口FIFO深度
-#define UartTxLEN 20  //发送缓存长度
-
-extern Uint16 UartRxLEN;  //接收缓存长度
-
-typedef struct Uart_Type{
-	union
-	  {
-	    Uint16 All;
-	    struct{
-	            Uint16  UartRevFlag           :1;  //接收到数据标志
-	            Uint16  HWOVFlag               :1;  //DSP硬件接收数据溢出标志
-
-	            Uint16  rFifoDataflag            :1;  //接收内存非空
-	            Uint16  rFifoFullflag            :1;  //接收内存溢出
-
-	            Uint16  DISRevflag                 :1;  //接收关闭
-
-	    		}Status_Bits;
-	  	}Mark_Para;
-
-	char rxData[10];						//接收缓存
-	Uint16 rxReadIndex;                         //接收FIFO写入索引
-	Uint16 rxWriteIndex;                        //接收FIFO读出索引
-
-	Uint16 timerOut;                            //超时判断
-}
-Uart_Msg; 
-
-extern Uart_Msg SCI_Msg;
+extern Uint16 DealRxLenth;
+extern Uint16 DealTxLenth;
 
 //--------------------------------------------------------------------
 void handleRxFIFO(void);
 void SCI_Init(Uint32 buad);
+void SetupSCI(Uint32 buad);
 Uint16 SendRequestSCI(Uint16 tmp);
 void ResponseSCI(Uint16* tmp);
 
@@ -51,7 +24,7 @@ void open_uart_debug (void);
 int printf(const char* str, ...); 
 interrupt void uartRx_isr(void);
 
-void scia_xmit(int a);
+void scia_xmit(Uint16 a);
 //---------------------------------------------------------------------
 int my_open(const char *path, unsigned flags, int fno);
 int my_close(int fno);

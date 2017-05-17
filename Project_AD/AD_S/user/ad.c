@@ -114,7 +114,7 @@ void Module_ADCalibration_ISR(void) {
 	EDIS;
 	AdcRegs.ADCINTFLGCLR.bit.ADCINT3 = 1; //Clear ADCINT1 flag reinitialize for next SOC
 
-	GpioDataRegs.GPBTOGGLE.bit.GPIO41 = 1;
+	GpioDataRegs.GPATOGGLE.bit.GPIO4 = 1;
 //---------------------------滤波-----------------------------------------
 	Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset] =
 			((JSOutVolt_ADCResult + Sample.JSOutVoltSampleOld * 3) >> 2);
@@ -259,7 +259,8 @@ void Module_ADCalibration_ISR(void) {
 
 	}
 	ModuleCtlReg.BufferOffset++;
-	AdcRegs.ADCSOCFRC1.all = 0X9FDE; //软件触发AD 的 SOC0--SOC3采样
+
+
 }
 
 void ArbitramentProtect(void) {
