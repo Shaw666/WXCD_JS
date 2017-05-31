@@ -57,7 +57,7 @@ extern "C" {
 // Signal Sample
 // Description in "AD sample calculate.xls"
 //===========================================================================
-#define  FASTBUFLENTH					8			//
+#define  FASTBUFLENTH					63			//
 
 #define  PFCVoltageScale        				    52800//_IQ15(0.161132)*10
 #define  PFCCurrentScale                                   1338//_IQ15(0.004084)*10
@@ -68,12 +68,12 @@ extern "C" {
 #define  DC5VoltScale  				                   528   //528//_IQ15(0.0016113)*10   js(0.0016117)
 
 
-#define  JSOutVoltageScale					  23237//_IQ15(0.0709158)*10
+#define  JSOutVoltageScale					  26638//_IQ15(0.0709158)*10*1.092
 #define  JSOutCurrentScale					  1320//_IQ15(0.0040293)*10
 #define  JSACVoltageScale					  23237//_IQ15(0.0709158)*10
 #define  JSACCurrentScale					  1320//_IQ15(0.0040293)*10
 #define  LocateVoltScale  			          264//_IQ15(0.00080586)*10
-#define  JSOutVoltProtectScale  			  264   //_IQ15()*10
+#define  JSOutVoltProtectScale  			  25988   //_IQ15()*10
 #define  P12VoltScale 			                       1241 //_IQ15(0.0037875)*10
 #define  N12VoltScale   		                       1320//_IQ15(0.0040293)*10
 

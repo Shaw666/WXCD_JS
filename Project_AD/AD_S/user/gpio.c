@@ -18,9 +18,9 @@ void GPIO_INit(void) {
 	GpioCtrlRegs.GPADIR.bit.GPIO5 = 1;		//GPIO5方向为输出
 	GpioCtrlRegs.GPADIR.bit.GPIO10 = 1;		//GPIO10方向为输出
 
-	GpioDataRegs.GPASET.bit.GPIO4 = 0;		//GPIO4输出高电平
-	GpioDataRegs.GPASET.bit.GPIO5 = 0;  	//GPIO5输出高电平
-	GpioDataRegs.GPASET.bit.GPIO10 = 0;		//GPIO10输出高电平
+	GpioDataRegs.GPASET.bit.GPIO4 =  1;		//GPIO4输出高电平
+	GpioDataRegs.GPASET.bit.GPIO5 =  1;  	//GPIO5输出高电平
+	GpioDataRegs.GPASET.bit.GPIO10 = 1;		//GPIO10输出高电平
 	//继电器控制初始化   继电器高电平闭合 在降压模块版本时并未使用
 	GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 0;	//GPIO11作为普通IO
 	GpioCtrlRegs.GPADIR.bit.GPIO11 = 1;		//GPIO11方向为输出

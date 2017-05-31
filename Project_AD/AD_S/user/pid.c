@@ -106,7 +106,7 @@ void Upper_Uart(void)//上位机发送程序
 	/*******************
 	串口发送数据给上位机
 	********************/
-	Send_Count = DataScope_Data_Generate(4); //生成4个通道的 格式化帧数据，返回帧数据长度
+	Send_Count = DataScope_Data_Generate(0); //生成4个通道的 格式化帧数据，返回帧数据长度
     for( j = 0;j<Send_Count;j++)  //循环发送,直到发送完毕
 	{
 //    	while (SciaRegs.SCIFFTX.bit.TXFFST != 0);

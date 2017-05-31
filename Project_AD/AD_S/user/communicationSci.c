@@ -121,7 +121,7 @@ void Module_SciaRxFIFO(void)  //串口接收中断
 		if (SciaReceiveCount < DealRxLenth) {
 			data = SciaRegs.SCIRXBUF.all;
 			SciaReceiveBuff[SciaReceiveCount++] = data;
-			LinaRegs.SCITD = data;
+//			LinaRegs.SCITD = data;
 		}
 	}
 
@@ -185,7 +185,7 @@ void ResponseSCI(Uint16* tmp) {
 	}
 
 }
-
+//Uint16 key=0,flag=0,counttt=0;
 Uint16 SciaSendBuff[5] = { 0x00, 0x00, 0x00, 0x00, 0x00 };
 Uint16 SendRequestSCI(Uint16 tmp) {
 	Uint16 SciaSendTimeoutCount = 0;
@@ -205,10 +205,21 @@ Uint16 SendRequestSCI(Uint16 tmp) {
 	case 0xA2:
 		//发送直流输出电压电流
 	{
-		SciaSendBuff[1] = ((Sample.JSOutVoltReal & 0xff00) >> 8);
-		SciaSendBuff[2] = (Sample.JSOutVoltReal & 0x00ff);
+
+		SciaSendBuff[1] = ((Sample.JSOutVoltProtectReal & 0xff00) >> 8);
+		SciaSendBuff[2] = (Sample.JSOutVoltProtectReal & 0x00ff);
 		SciaSendBuff[3] = ((Sample.JSOutCurrentReal & 0xff00) >> 8);
 		SciaSendBuff[4] = ((Sample.JSOutCurrentReal & 0x00ff));
+//		counttt++;
+//		key = key^0x01;
+//		if(flag==1) SciaSendBuff[0]=0xff;
+//			if(key==0x01){
+//			GpioDataRegs.GPASET.bit.GPIO5 = 1;
+//			}
+//			else {GpioDataRegs.GPACLEAR.bit.GPIO5 = 1;}
+//			if((Sample.JSOutVoltProtectReal<=0x0639)&&(counttt>=5000)) {GpioDataRegs.GPACLEAR.bit.GPIO5 = 1;
+//			flag = 1;
+//			}
 	}
 		break;
 	case 0x55:

@@ -6,11 +6,8 @@
  */
 #include "Module_Project.h"
 
-Uint16 Error;
-Uint16 Tmp = 0;
-u8 key=0;
 extern Uint16 RamfuncsLoadSize;
-
+Uint16 checkOrderflag =0;
 void main(void)
 {
    InitSysCtrl();
@@ -31,7 +28,7 @@ void main(void)
 	Timer0_init(); //初始化定时器0用于定时处理相关任务
 //	Timer1_init();
 	SCI_Init(57600);   //初始化SCI用于调试串口
-	SetupSCI(115200);
+//	SetupSCI(115200);
 //	open_uart_debug();
 //	I2CA_Init();                //HW IIC初始化，100KHz
 //	SPI_INit();
@@ -43,23 +40,24 @@ void main(void)
 	PieCtrlRegs.PIECTRL.bit.ENPIE = 1;          // Enable the PIE block
 	EINT;  // Enable Global interrupt INTM
 	ERTM;
-	AdcRegs.ADCSOCFRC1.all = 0X9FDE;
+//	AdcRegs.ADCSOCFRC1.all = 0X9FDE;
 //	DIP_Scan();   //开机扫描一次拨码开关
 	DealRxLenth = 5;
+	AdcRegs.ADCSOCFRC1.all = 0X9FDE;
     while(1) 
     {
-  //  	if(timer0Base.Mark_Para.Status_Bits.OnemsdFlag == 1)
-
-//    		if(STOP_Scan()==Excep_jygy){//降压模块输出过压 通知前端结束传输
-//    		//向发射端发送消息 并记录状态
-//    		//切断继电器
-//    		}
-    	if(timer0Base.msCounter>=50){
-//    		GpioDataRegs.GPATOGGLE.bit.GPIO5 = 1;
-				timer0Base.msCounter = 0;
+   	if(timer0Base.msCounter == 1){
+   		timer0Base.msCounter = 0;
+				checkOrderflag++;
+				if(checkOrderflag>=1000){
+					checkOrderflag=0;
+					scia_xmit(0x11);
+					scia_xmit(0x22);
+					scia_xmit(0x33);
+				}else{
 				SendRequestSCI(0xA2);//发送输出电压
-				AdcRegs.ADCSOCFRC1.all = 0X9FDE;
  //   			Upper_Uart();
+				}
     		}
 }									
 }

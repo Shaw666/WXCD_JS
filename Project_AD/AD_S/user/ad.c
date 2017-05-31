@@ -108,158 +108,162 @@ void ADC_Config(void) {
 }
 
 void Module_ADCalibration_ISR(void) {
-	Uint16 LocateVCount =0;
+//	Uint16 LocateVCount =0;
 	EALLOW;
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP10;   // Acknowledge interrupt to PIE
 	EDIS;
 	AdcRegs.ADCINTFLGCLR.bit.ADCINT3 = 1; //Clear ADCINT1 flag reinitialize for next SOC
 
-	GpioDataRegs.GPATOGGLE.bit.GPIO4 = 1;
+//	GpioDataRegs.GPATOGGLE.bit.GPIO4 = 1;
 //---------------------------滤波-----------------------------------------
-	Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset] =
-			((JSOutVolt_ADCResult + Sample.JSOutVoltSampleOld * 3) >> 2);
-	Sample.JSOutVoltSampleOld =
-			Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset] =
+//			((JSOutVolt_ADCResult + Sample.JSOutVoltSampleOld * 3) >> 2);
+//	Sample.JSOutVoltSampleOld =
+//			Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+//	Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset] =
+////			((
+//					JSOutCurrent_ADCResult ;
+//					+ Sample.JSOutCurrentSampleOld * 1) >> 1);
+//	Sample.JSOutCurrentSampleOld =
+//			Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
 
-	Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset] =
-			((JSOutCurrent_ADCResult + Sample.JSOutCurrentSampleOld * 3) >> 2);
-	Sample.JSOutCurrentSampleOld =
-			Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset] =
+//			((JSACVolt_ADCResult + Sample.JSACVoltSampleOld * 3) >> 2);
+//	Sample.JSACVoltSampleOld =
+//			Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+//	Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset] =
+//			((JSACCurrent_ADCResult + Sample.JSACCurrentSampleOld * 3) >> 2);
+//	Sample.JSACCurrentSampleOld =
+//			Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
 
-	Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset] =
-			((JSACVolt_ADCResult + Sample.JSACVoltSampleOld * 3) >> 2);
-	Sample.JSACVoltSampleOld =
-			Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset] =
-			((JSACCurrent_ADCResult + Sample.JSACCurrentSampleOld * 3) >> 2);
-	Sample.JSACCurrentSampleOld =
-			Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset] =
-			((LocateVolt_ADCResult1 + Sample.LocateVoltSampleOld[0] * 3) >> 2);
-	Sample.LocateVoltSampleOld[0] =
-			Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset];
-	Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset] =
-			((LocateVolt_ADCResult2 + Sample.LocateVoltSampleOld[1] * 3) >> 2);
-	Sample.LocateVoltSampleOld[1] =
-			Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset];
-	Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset] =
-			((LocateVolt_ADCResult3 + Sample.LocateVoltSampleOld[2] * 3) >> 2);
-	Sample.LocateVoltSampleOld[2] =
-			Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset] =
+//			((LocateVolt_ADCResult1 + Sample.LocateVoltSampleOld[0] * 3) >> 2);
+//	Sample.LocateVoltSampleOld[0] =
+//			Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset] =
+//			((LocateVolt_ADCResult2 + Sample.LocateVoltSampleOld[1] * 3) >> 2);
+//	Sample.LocateVoltSampleOld[1] =
+//			Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset] =
+//			((LocateVolt_ADCResult3 + Sample.LocateVoltSampleOld[2] * 3) >> 2);
+//	Sample.LocateVoltSampleOld[2] =
+//			Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset];
 
 
-	Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset] =
-			((DC3P3VoltADCResult + Sample.DC3P3VoltSampleOld * 3) >> 2);
-	Sample.DC3P3VoltSampleOld =
-			Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((DC5VoltADCResult
-			+ Sample.DC5VoltSampleOld * 3) >> 2);
-	Sample.DC5VoltSampleOld =
-			Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((P12Volt_ADCResult
-			+ Sample.P12VoltSampleOld * 3) >> 2);
-	Sample.P12VoltSampleOld =
-			Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((N12Volt_ADCResult
-			+ Sample.N12VoltSampleOld * 3) >> 2);
-	Sample.N12VoltSampleOld =
-			Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-
-	Sample.JSOutVoltProtectSampleBuffer[ModuleCtlReg.BufferOffset] = ((JSOutVoltProtect_ADCResult
-			+ Sample.JSOutVoltProtectSampleOld * 3) >> 2);
-	Sample.JSOutVoltProtectSampleOld = Sample.JSOutVoltProtectSampleBuffer[ModuleCtlReg.BufferOffset];
-
-//------------------------------------累加--------------------------------------
-	Sample.JSOutVoltSampleAccSum +=
-			Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.JSOutCurrentSampleAccSum +=
-			Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.JSACVoltSampleAccSum +=
-			Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.JSACCurrentSampleAccSum +=
-			Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.LocateVoltSampleAccSum[0] +=
-			Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset];
-	Sample.LocateVoltSampleAccSum[1] +=
-			Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset];
-	Sample.LocateVoltSampleAccSum[2] +=
-			Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset];
-	Sample.DC3P3VoltSampleAccSum +=
-			Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.DC5VoltSampleAccSum +=
-			Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.P12VoltSampleAccSum +=
-			Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
-	Sample.N12VoltSampleAccSum +=
-			Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset] =
+//			((DC3P3VoltADCResult + Sample.DC3P3VoltSampleOld * 3) >> 2);
+//	Sample.DC3P3VoltSampleOld =
+//			Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+//	Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((DC5VoltADCResult
+//			+ Sample.DC5VoltSampleOld * 3) >> 2);
+//	Sample.DC5VoltSampleOld =
+//			Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+//	Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((P12Volt_ADCResult
+//			+ Sample.P12VoltSampleOld * 3) >> 2);
+//	Sample.P12VoltSampleOld =
+//			Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+//	Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset] = ((N12Volt_ADCResult
+//			+ Sample.N12VoltSampleOld * 3) >> 2);
+//	Sample.N12VoltSampleOld =
+//			Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+	Sample.JSOutVoltProtectSampleBuffer[ModuleCtlReg.BufferOffset] =
+//			((
+			JSOutVoltProtect_ADCResult;
+//			+ Sample.JSOutVoltProtectSampleOld * 1) >> 1);
+//	Sample.JSOutVoltProtectSampleOld = Sample.JSOutVoltProtectSampleBuffer[ModuleCtlReg.BufferOffset];
+//
+////------------------------------------累加--------------------------------------
+//	Sample.JSOutVoltSampleAccSum +=
+//			Sample.JSOutVoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.JSOutCurrentSampleAccSum +=
+//			Sample.JSOutCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.JSACVoltSampleAccSum +=
+//			Sample.JSACVoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.JSACCurrentSampleAccSum +=
+//			Sample.JSACCurrentSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleAccSum[0] +=
+//			Sample.LocateVoltSampleBuffer[0][ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleAccSum[1] +=
+//			Sample.LocateVoltSampleBuffer[1][ModuleCtlReg.BufferOffset];
+//	Sample.LocateVoltSampleAccSum[2] +=
+//			Sample.LocateVoltSampleBuffer[2][ModuleCtlReg.BufferOffset];
+//	Sample.DC3P3VoltSampleAccSum +=
+//			Sample.DC3P3VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.DC5VoltSampleAccSum +=
+//			Sample.DC5VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.P12VoltSampleAccSum +=
+//			Sample.P12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
+//	Sample.N12VoltSampleAccSum +=
+//			Sample.N12VoltSampleBuffer[ModuleCtlReg.BufferOffset];
 	Sample.JSOutVoltProtectSampleAccSum +=
 			Sample.JSOutVoltProtectSampleBuffer[ModuleCtlReg.BufferOffset];
 //----------------------------------平均---------------------------------
 	if (FASTBUFLENTH <= ModuleCtlReg.BufferOffset) {
 		ModuleCtlReg.BufferOffset = 0;
-		// output current
-		Sample.JSOutVolt = (Uint16) (Sample.JSOutVoltSampleAccSum >> 3);
-		Sample.JSOutVoltSampleAccSum = 0;
-		Sample.JSOutVoltReal = (Uint16) ((Uint32) Sample.JSOutVolt
-				* (Uint32) JSOutVoltageScale >> 15);
+//		// output current
+//		Sample.JSOutVolt = (Uint16) (Sample.JSOutVoltSampleAccSum >> 1);
+//		Sample.JSOutVoltSampleAccSum = 0;
+//		Sample.JSOutVoltReal = (Uint16) ((Uint32) Sample.JSOutVolt
+//				* (Uint32) JSOutVoltageScale >> 15);
+//
+//		Sample.JSOutCurrent = (Uint16) (Sample.JSOutCurrentSampleAccSum >> 0);
+//		Sample.JSOutCurrentSampleAccSum = 0;
+//		Sample.JSOutCurrentReal = (int16) ((Uint32) Sample.JSOutCurrent
+//				* (Uint32) JSOutCurrentScale >> 15);
+//
+//		Sample.JSACVolt = (Uint16) (Sample.JSACVoltSampleAccSum >> 3);
+//		Sample.JSACVoltSampleAccSum = 0;
+//		Sample.JSACVoltReal = (Uint16) ((Uint32) Sample.JSACVolt
+//				* (Uint32) JSACVoltageScale >> 15);
+//
+//		Sample.JSACCurrent = (Uint16) (Sample.JSACCurrentSampleAccSum >> 3);
+//		Sample.JSACCurrentSampleAccSum = 0;
+//		Sample.JSACCurrentReal = (int16) ((Uint32) Sample.JSACCurrent
+//				* (Uint32) JSACCurrentScale >> 15);
 
-		Sample.JSOutCurrent = (Uint16) (Sample.JSOutCurrentSampleAccSum >> 3);
-		Sample.JSOutCurrentSampleAccSum = 0;
-		Sample.JSOutCurrentReal = (int16) ((Uint32) Sample.JSOutCurrent
-				* (Uint32) JSOutCurrentScale >> 15);
-
-		Sample.JSACVolt = (Uint16) (Sample.JSACVoltSampleAccSum >> 3);
-		Sample.JSACVoltSampleAccSum = 0;
-		Sample.JSACVoltReal = (Uint16) ((Uint32) Sample.JSACVolt
-				* (Uint32) JSACVoltageScale >> 15);
-
-		Sample.JSACCurrent = (Uint16) (Sample.JSACCurrentSampleAccSum >> 3);
-		Sample.JSACCurrentSampleAccSum = 0;
-		Sample.JSACCurrentReal = (int16) ((Uint32) Sample.JSACCurrent
-				* (Uint32) JSACCurrentScale >> 15);
-
-		Sample.JSOutVoltProtect = (Uint16) (Sample.JSOutVoltProtectSampleAccSum >> 3);
+		Sample.JSOutVoltProtect = (Uint16) (Sample.JSOutVoltProtectSampleAccSum >>6 );
 		Sample.JSOutVoltProtectSampleAccSum = 0;
-		Sample.JSOutVoltProtectReal = (int16) ((Uint32) Sample.JSOutVoltProtect
+		Sample.JSOutVoltProtectReal = (Uint16) ((Uint32)	Sample.JSOutVoltProtect
 				* (Uint32) JSOutVoltProtectScale >> 15);
+//		for(LocateVCount=0;LocateVCount<3;LocateVCount++){
+//			Sample.LocateVolt[LocateVCount] = (Uint16)(Sample.LocateVoltSampleAccSum[LocateVCount] >>3);
+//			Sample.LocateVoltSampleAccSum[LocateVCount] = 0;
+//			Sample.LocateVoltReal[LocateVCount] = (int16) ((Uint32) Sample.LocateVolt[LocateVCount]
+//						* (Uint32) LocateVoltScale >> 15);
+//		}
 
-		for(LocateVCount=0;LocateVCount<3;LocateVCount++){
-			Sample.LocateVolt[LocateVCount] = (Uint16)(Sample.LocateVoltSampleAccSum[LocateVCount] >>3);
-			Sample.LocateVoltSampleAccSum[LocateVCount] = 0;
-			Sample.LocateVoltReal[LocateVCount] = (int16) ((Uint32) Sample.LocateVolt[LocateVCount]
-						* (Uint32) LocateVoltScale >> 15);
-		}
-
-		Sample.DC3P3Volt = (Uint16) (Sample.DC3P3VoltSampleAccSum >> 3);
-		Sample.DC3P3VoltSampleAccSum = 0;
-		Sample.DC3P3VoltReal = (int16) ((Uint32) Sample.DC3P3Volt
-				* (Uint32) DC3P3VoltScale >> 15);
-
-		Sample.DC5Volt = (Uint16) (Sample.DC5VoltSampleAccSum >> 3);
-		Sample.DC5VoltSampleAccSum = 0;
-		Sample.DC5VoltReal = (int16) ((Uint32) Sample.DC5Volt
-				* (Uint32) DC5VoltScale >> 15);
-
-		Sample.P12Volt = (Uint16) (Sample.P12VoltSampleAccSum >> 3);
-		Sample.P12VoltSampleAccSum = 0;
-		Sample.P12VoltReal = (int16) ((Uint32) Sample.P12Volt
-				* (Uint32) P12VoltScale >> 15);
-
-		Sample.N12Volt = (Uint16) (Sample.N12VoltSampleAccSum >> 3);
-		Sample.N12VoltSampleAccSum = 0;
-		Sample.N12VoltReal = (int16) ((Uint32) Sample.N12Volt
-				* (Uint32) N12VoltScale >> 15);
+//		Sample.DC3P3Volt = (Uint16) (Sample.DC3P3VoltSampleAccSum >> 3);
+//		Sample.DC3P3VoltSampleAccSum = 0;
+//		Sample.DC3P3VoltReal = (int16) ((Uint32) Sample.DC3P3Volt
+//				* (Uint32) DC3P3VoltScale >> 15);
+//
+//		Sample.DC5Volt = (Uint16) (Sample.DC5VoltSampleAccSum >> 3);
+//		Sample.DC5VoltSampleAccSum = 0;
+//		Sample.DC5VoltReal = (int16) ((Uint32) Sample.DC5Volt
+//				* (Uint32) DC5VoltScale >> 15);
+//
+//		Sample.P12Volt = (Uint16) (Sample.P12VoltSampleAccSum >> 3);
+//		Sample.P12VoltSampleAccSum = 0;
+//		Sample.P12VoltReal = (int16) ((Uint32) Sample.P12Volt
+//				* (Uint32) P12VoltScale >> 15);
+//
+//		Sample.N12Volt = (Uint16) (Sample.N12VoltSampleAccSum >> 3);
+//		Sample.N12VoltSampleAccSum = 0;
+//		Sample.N12VoltReal = (int16) ((Uint32) Sample.N12Volt
+//				* (Uint32) N12VoltScale >> 15);
 //暂时不处理乘法器
 		// Calibration use y=ax+b
 
 	}
 	ModuleCtlReg.BufferOffset++;
-
+	AdcRegs.ADCSOCFRC1.all = 0X9FDE;
+//	SendRequestSCI(0xA2);//发送输出电压
 
 }
 
